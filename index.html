@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .flashcard {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .card-front {
+            background: white;
+        }
+        
+        .card-back {
+            background: #f0f4ff;
+            transform: rotateY(180deg);
+        }
+        
+        .card-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .card-content {
+            font-size: 1.4em;
+            text-align: center;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .card-back .card-content {
+            color: #555;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-prev, .btn-next {
+            background: white;
+            color: #667eea;
+        }
+        
+        .btn-prev:hover, .btn-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-shuffle {
+            background: #ffd700;
+            color: #333;
+        }
+        
+        .btn-shuffle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .progress {
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .hint {
+            color: white;
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧬 Science Flashcards</h1>
+        <p>Year 1 High School Science</p>
+    </div>
+    
+    <div class="progress" id="progress">Card 1 of 14</div>
+    
+    <div class="card-container">
+        <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="card-face card-front">
+                <div class="card-label">Question</div>
+                <div class="card-content" id="question"></div>
+            </div>
+            <div class="card-face card-back">
+                <div class="card-label">Answer</div>
+                <div class="card-content" id="answer"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn-prev" onclick="prevCard()">← Previous</button>
+        <button class="btn-shuffle" onclick="shuffleCards()">🔀 Shuffle</button>
+        <button class="btn-next" onclick="nextCard()">Next →</button>
+    </div>
+    
+    <div class="hint">💡 Click the card to flip it</div>
+
+    <script>
+        const flashcards = [
+            // Health & Human Body
+            {
+                question: "What is a symptom?",
+                answer: "A symptom is a physical or mental sign that indicates someone may have an illness or disease. Symptoms help doctors diagnose what's wrong."
+            },
+            {
+                question: "If someone has a cold, what symptoms would they have?",
+                answer: "Sore throat, cough, runny nose, sneezing, fever, headache, and fatigue."
+            },
+            {
+                question: "What is the difference between a symptom and a sign?",
+                answer: "A symptom is something the patient feels (like pain or nausea), while a sign is something a doctor can observe or measure (like a rash or high temperature)."
+            },
+            // Cell Biology
+            {
+                question: "What are the main parts of an animal cell?",
+                answer: "Nucleus (controls the cell), mitochondria (produces energy), cell membrane (controls what enters/exits), and cytoplasm (gel-like substance where reactions occur)."
+            },
+            {
+                question: "What is the function of the nucleus?",
+                answer: "The nucleus controls all the cell's activities and contains DNA, which carries genetic information."
+            },
+            {
+                question: "What do mitochondria do?",
+                answer: "Mitochondria are the 'powerhouses' of the cell—they produce energy through cellular respiration."
+            },
+            {
+                question: "How is a plant cell different from an animal cell?",
+                answer: "Plant cells have a cell wall, chloroplasts, and a large vacuole, which animal cells don't have."
+            },
+            // States of Matter
+            {
+                question: "What are the three states of water?",
+                answer: "Solid (ice), liquid (water), and gas (water vapor or steam)."
+            },
+            {
+                question: "What happens to water molecules when water freezes?",
+                answer: "The molecules slow down and arrange themselves in a fixed pattern, forming ice. Water expands when it freezes."
+            },
+            {
+                question: "What is evaporation?",
+                answer: "Evaporation is when liquid water changes into water vapor (gas) due to heating. It happens at the surface of the liquid."
+            },
+            {
+                question: "What is condensation?",
+                answer: "Condensation is when water vapor (gas) cools down and changes back into liquid water, like when you see water droplets on a cold glass."
+            },
+            // Properties of States of Matter
+            {
+                question: "What are the properties of solids?",
+                answer: "Solids have a fixed shape and volume. The particles are tightly packed in a regular pattern and vibrate in place. Solids cannot be compressed easily."
+            },
+            {
+                question: "What are the properties of liquids?",
+                answer: "Liquids have a fixed volume but no fixed shape—they take the shape of their container. The particles are close together but can move around each other. Liquids cannot be compressed easily."
+            },
+            {
+                question: "What are the properties of gases?",
+                answer: "Gases have no fixed shape or volume—they spread out to fill their container. The particles are far apart and move freely at high speeds. Gases can be compressed easily."
+            }
+        ];
+
+        let currentCard = 0;
+        let isFlipped = false;
+
+        function displayCard() {
+            document.getElementById('question').textContent = flashcards[currentCard].question;
+            document.getElementById('answer').textContent = flashcards[currentCard].answer;
+            document.getElementById('progress').textContent = `Card ${currentCard + 1} of ${flashcards.length}`;
+            
+            if (isFlipped) {
+                document.getElementById('flashcard').classList.remove('flipped');
+                isFlipped = false;
+            }
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % flashcards.length;
+            displayCard();
+        }
+
+        function prevCard() {
+            currentCard = (currentCard - 1 + flashcards.length) % flashcards.length;
+            displayCard();
+        }
+
+        function shuffleCards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentCard = 0;
+            displayCard();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') nextCard();
+            if (event.key === 'ArrowLeft') prevCard();
+            if (event.key === ' ') flipCard();
+        });
+
+        displayCard();
+    </script>
+</body>
+</html>
