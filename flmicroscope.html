@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microscope Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card-front {
+            background: white;
+        }
+
+        .card-back {
+            background: #e8f5e9;
+            transform: rotateY(180deg);
+        }
+
+        .card-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .card-front h2 {
+            color: #185a9d;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .card-front p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .card-back h3 {
+            color: #43cea2;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .card-back p {
+            color: #333;
+            font-size: 1.1em;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #185a9d;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .progress {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .hint {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 Microscope Flashcards</h1>
+        
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front">
+                    <div class="card-content">
+                        <h2 id="question">Loading...</h2>
+                        <p>Click to reveal answer</p>
+                    </div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-content">
+                        <h3>Answer</h3>
+                        <p id="answer">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-secondary" onclick="previousCard()">← Previous</button>
+            <button class="btn-primary" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="progress" id="progress">Card 1 of 10</div>
+        <div class="hint">💡 Tip: Click the card to flip it!</div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                question: "Why do we use microscopes?",
+                answer: "We use microscopes to see very small objects and details that are too small to see with the naked eye, such as cells, tissues, and microorganisms."
+            },
+            {
+                question: "What is magnification?",
+                answer: "Magnification is how many times larger an object appears compared to its actual size when viewed through a microscope."
+            },
+            {
+                question: "What is the eyepiece lens?",
+                answer: "The eyepiece lens (or ocular lens) is the lens at the top of the microscope that you look through. It typically magnifies by 10x."
+            },
+            {
+                question: "What is the objective lens?",
+                answer: "The objective lens is the lens closest to the specimen on the stage. Microscopes usually have multiple objective lenses with different magnifications (e.g., 4x, 10x, 40x)."
+            },
+            {
+                question: "What is the stage on a microscope?",
+                answer: "The stage is the flat platform where you place the slide with your specimen. It often has clips to hold the slide in place."
+            },
+            {
+                question: "What are the coarse and fine focusing wheels?",
+                answer: "The coarse focusing wheel makes large adjustments to bring the image roughly into focus. The fine focusing wheel makes small, precise adjustments for a sharp, clear image."
+            },
+            {
+                question: "What is a specimen?",
+                answer: "A specimen is the sample or object that you want to observe under the microscope, such as a piece of onion skin, blood cells, or plant tissue."
+            },
+            {
+                question: "What is a coverslip?",
+                answer: "A coverslip is a thin, flat piece of glass or plastic placed over the specimen on a slide to protect it, flatten it, and keep it in place."
+            },
+            {
+                question: "How do you prepare a specimen for microscopy?",
+                answer: "Steps: 1) Place a drop of water on a clean slide. 2) Place your specimen in the water. 3) Lower a coverslip at an angle to avoid air bubbles. 4) Place the slide on the stage and secure with clips."
+            },
+            {
+                question: "How do you calculate total magnification?",
+                answer: "Total magnification = eyepiece lens magnification × objective lens magnification. For example: if eyepiece is 10x and objective is 40x, total magnification = 10 × 40 = 400x."
+            }
+        ];
+
+        let currentCard = 0;
+        const flashcard = document.getElementById('flashcard');
+
+        function updateCard() {
+            document.getElementById('question').textContent = flashcards[currentCard].question;
+            document.getElementById('answer').textContent = flashcards[currentCard].answer;
+            document.getElementById('progress').textContent = `Card ${currentCard + 1} of ${flashcards.length}`;
+            
+            if (flashcard.classList.contains('flipped')) {
+                flashcard.classList.remove('flipped');
+            }
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % flashcards.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            currentCard = (currentCard - 1 + flashcards.length) % flashcards.length;
+            updateCard();
+        }
+
+        flashcard.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+
+        updateCard();
+    </script>
+</body>
+</html>
