@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tissues and Organs Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card-front {
+            background: white;
+        }
+
+        .card-back {
+            background: #f0f4ff;
+            transform: rotateY(180deg);
+        }
+
+        .card-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .card-front h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .card-front p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .card-back h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .card-back p {
+            color: #333;
+            font-size: 1.1em;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .progress {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .hint {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 Tissues and Organs Flashcards</h1>
+        
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front">
+                    <div class="card-content">
+                        <h2 id="question">Loading...</h2>
+                        <p>Click to reveal answer</p>
+                    </div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-content">
+                        <h3>Answer</h3>
+                        <p id="answer">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-secondary" onclick="previousCard()">← Previous</button>
+            <button class="btn-primary" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="progress" id="progress">Card 1 of 8</div>
+        <div class="hint">💡 Tip: Click the card to flip it!</div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                question: "What are tissues?",
+                answer: "Tissues are groups of similar cells that work together to perform a specific function in the body."
+            },
+            {
+                question: "What are organs made of?",
+                answer: "Organs are made of several different tissues working together to perform specific functions."
+            },
+            {
+                question: "What is muscle tissue in the heart and what does it do?",
+                answer: "Muscle tissue in the heart contracts and relaxes to pump blood around the body. It's made of cardiac muscle cells that work continuously throughout life."
+            },
+            {
+                question: "What tissues are in the heart?",
+                answer: "The heart contains: muscular tissue (to contract and pump blood), epithelial tissue (lining chambers), connective tissue (valves and structure), and nervous tissue (to control heart rate)."
+            },
+            {
+                question: "What tissues are in the liver and what do they do?",
+                answer: "The liver contains: epithelial tissue (liver cells/hepatocytes that process nutrients and toxins), connective tissue (provides structure), and blood vessels (transport blood for filtering)."
+            },
+            {
+                question: "What is xylem tissue in plants and what does it do?",
+                answer: "Xylem is a plant tissue that transports water and mineral ions from the roots up through the stem to the leaves. It's made of dead cells that form continuous tubes."
+            },
+            {
+                question: "What is phloem tissue in plants and what does it do?",
+                answer: "Phloem is a plant tissue that transports dissolved sugars (food) from the leaves to other parts of the plant, including the roots and growing areas. It contains living cells."
+            },
+            {
+                question: "What tissues are found in a plant leaf?",
+                answer: "A leaf contains: epidermal tissue (protective outer layer), palisade mesophyll (for photosynthesis), spongy mesophyll (gas exchange), xylem (water transport), and phloem (sugar transport)."
+            },
+            {
+                question: "What is an organ?",
+                answer: "An organ is a structure made of different tissues working together to perform a specific function in the body or plant."
+            },
+            {
+                question: "What are examples of organs in humans?",
+                answer: "Examples include: heart, lungs, liver, stomach, kidneys, bladder, brain, intestines, and skin."
+            },
+            {
+                question: "What does the heart do?",
+                answer: "The heart pumps blood around the body, delivering oxygen and nutrients to cells and removing waste products like carbon dioxide."
+            },
+            {
+                question: "What do the lungs do?",
+                answer: "The lungs take in oxygen from the air during breathing and remove carbon dioxide from the blood. Gas exchange occurs in tiny air sacs called alveoli."
+            },
+            {
+                question: "What does the diaphragm do?",
+                answer: "The diaphragm is a muscle below the lungs that contracts and relaxes to help with breathing. When it contracts, it moves down and air is pulled into the lungs."
+            },
+            {
+                question: "What does the stomach do?",
+                answer: "The stomach churns and mixes food with digestive enzymes and acid to break it down into smaller particles. It begins the digestion of proteins."
+            },
+            {
+                question: "What does the small intestine do?",
+                answer: "The small intestine completes the digestion of food using enzymes and absorbs nutrients (like glucose, amino acids, vitamins) into the bloodstream."
+            },
+            {
+                question: "What does the large intestine do?",
+                answer: "The large intestine absorbs water from undigested food and forms solid waste (faeces) to be removed from the body."
+            },
+            {
+                question: "What does the liver do?",
+                answer: "The liver processes nutrients from digested food, produces bile to help digest fats, breaks down toxins, and stores glucose as glycogen."
+            },
+            {
+                question: "What do the kidneys do?",
+                answer: "The kidneys filter waste products and excess water from the blood to produce urine. They also help regulate water and salt balance in the body."
+            },
+            {
+                question: "What does the bladder do?",
+                answer: "The bladder stores urine until it's ready to be released from the body during urination."
+            },
+            {
+                question: "What does the rectum do?",
+                answer: "The rectum stores faeces (solid waste) temporarily before it's passed out of the body through the anus."
+            },
+            {
+                question: "What are the main plant organs and their functions?",
+                answer: "Leaves (photosynthesis and gas exchange), roots (absorb water and minerals, anchor plant), stems (support plant and transport water/nutrients), flowers (reproduction)."
+            },
+            {
+                question: "What is photosynthesis?",
+                answer: "Photosynthesis is the process where plants use light energy to convert carbon dioxide and water into glucose (sugar) and oxygen. Equation: carbon dioxide + water → glucose + oxygen (using light energy and chlorophyll)."
+            },
+            {
+                question: "What is the circulatory system and its organs?",
+                answer: "The circulatory system transports blood, oxygen, nutrients, and waste around the body. Main organs: heart (pumps blood), blood vessels (arteries, veins, capillaries transport blood)."
+            },
+            {
+                question: "What is the digestive system and its organs?",
+                answer: "The digestive system breaks down food and absorbs nutrients. Main organs: mouth, esophagus, stomach, small intestine, large intestine, liver, pancreas, rectum."
+            },
+            {
+                question: "What is the locomotor system and its organs?",
+                answer: "The locomotor (musculoskeletal) system allows movement and supports the body. Main organs: bones (skeleton), muscles, joints, tendons, ligaments."
+            },
+            {
+                question: "What is the urinary system and its organs?",
+                answer: "The urinary system removes waste and excess water from the body. Main organs: kidneys (filter blood), ureters (transport urine), bladder (stores urine), urethra (releases urine)."
+            },
+            {
+                question: "What is the nervous system and its organs?",
+                answer: "The nervous system controls and coordinates body functions and responses. Main organs: brain (control center), spinal cord, nerves (carry electrical signals)."
+            },
+            {
+                question: "What is the respiratory system and its organs?",
+                answer: "The respiratory system takes in oxygen and removes carbon dioxide. Main organs: nose/mouth (air entry), trachea (windpipe), bronchi, lungs, diaphragm (breathing muscle)."
+            },
+            {
+                question: "What is the plant water transport system?",
+                answer: "The plant water transport system moves water from roots to leaves. Main structures: root hair cells (absorb water from soil), xylem tissue (transports water up through stem to leaves)."
+            }
+        ];
+
+        let currentCard = 0;
+        const flashcard = document.getElementById('flashcard');
+
+        function updateCard() {
+            document.getElementById('question').textContent = flashcards[currentCard].question;
+            document.getElementById('answer').textContent = flashcards[currentCard].answer;
+            document.getElementById('progress').textContent = `Card ${currentCard + 1} of ${flashcards.length}`;
+            
+            if (flashcard.classList.contains('flipped')) {
+                flashcard.classList.remove('flipped');
+            }
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % flashcards.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            currentCard = (currentCard - 1 + flashcards.length) % flashcards.length;
+            updateCard();
+        }
+
+        flashcard.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+
+        // Initialize first card
+        updateCard();
+    </script>
+</body>
+</html>
