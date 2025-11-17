@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology Practice Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .question-block {
+            background: #f8f9ff;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            color: #444;
+            font-size: 1em;
+        }
+
+        .tf-options {
+            display: flex;
+            gap: 30px;
+            margin-left: 20px;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            width: 100%;
+            max-width: 300px;
+            margin-left: 20px;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 15px 40px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .results {
+            display: none;
+            background: #e8f5e9;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .score {
+            font-size: 2.5em;
+            color: #43a047;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .score-message {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .reset-btn {
+            padding: 12px 30px;
+            background: #764ba2;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #643a8a;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 Biology Practice Test</h1>
+        <p class="subtitle">Tissues, Organs, Organ Systems & Microscopes</p>
+
+        <form id="testForm">
+            <!-- Question 1 -->
+            <div class="question-block">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">What are tissues?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" value="a" id="q1a">
+                        <label for="q1a">A) Individual cells working alone</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="b" id="q1b">
+                        <label for="q1b">B) Groups of similar cells working together to perform a specific function</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="c" id="q1c">
+                        <label for="q1c">C) Different organs grouped together</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="d" id="q1d">
+                        <label for="q1d">D) The outer layer of the body</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback1"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-block">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">True or False: Organs are made of only one type of tissue.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q2" value="true" id="q2t">
+                        <label for="q2t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="false" id="q2f">
+                        <label for="q2f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback2"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-block">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">What is the main function of the heart?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" value="a" id="q3a">
+                        <label for="q3a">A) To digest food</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="b" id="q3b">
+                        <label for="q3b">B) To pump blood around the body</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="c" id="q3c">
+                        <label for="q3c">C) To filter waste from blood</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="d" id="q3d">
+                        <label for="q3d">D) To breathe in oxygen</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback3"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-block">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Which plant tissue transports water from the roots to the leaves?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" value="a" id="q4a">
+                        <label for="q4a">A) Phloem</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="b" id="q4b">
+                        <label for="q4b">B) Xylem</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="c" id="q4c">
+                        <label for="q4c">C) Epidermis</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="d" id="q4d">
+                        <label for="q4d">D) Mesophyll</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback4"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-block">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">True or False: Phloem tissue transports sugars in plants.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q5" value="true" id="q5t">
+                        <label for="q5t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="false" id="q5f">
+                        <label for="q5f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback5"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-block">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">What does the liver do?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" value="a" id="q6a">
+                        <label for="q6a">A) Stores urine</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="b" id="q6b">
+                        <label for="q6b">B) Pumps blood</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="c" id="q6c">
+                        <label for="q6c">C) Processes nutrients, produces bile, and breaks down toxins</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="d" id="q6d">
+                        <label for="q6d">D) Absorbs oxygen</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback6"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-block">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">True or False: The kidneys filter waste from the blood to produce urine.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q7" value="true" id="q7t">
+                        <label for="q7t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="false" id="q7f">
+                        <label for="q7f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback7"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-block">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">What is photosynthesis?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" value="a" id="q8a">
+                        <label for="q8a">A) The process of breaking down food</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="b" id="q8b">
+                        <label for="q8b">B) The process where plants use light to convert CO₂ and water into glucose and oxygen</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="c" id="q8c">
+                        <label for="q8c">C) The process of absorbing water through roots</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="d" id="q8d">
+                        <label for="q8d">D) The process of cell division</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback8"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-block">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Which organ system is responsible for transporting blood around the body?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" value="a" id="q9a">
+                        <label for="q9a">A) Digestive system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" value="b" id="q9b">
+                        <label for="q9b">B) Respiratory system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" value="c" id="q9c">
+                        <label for="q9c">C) Circulatory system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" value="d" id="q9d">
+                        <label for="q9d">D) Nervous system</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback9"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-block">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">True or False: The respiratory system includes the lungs, trachea, and diaphragm.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q10" value="true" id="q10t">
+                        <label for="q10t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" value="false" id="q10f">
+                        <label for="q10f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback10"></div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-block">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">What is magnification?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" value="a" id="q11a">
+                        <label for="q11a">A) The brightness of the microscope light</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" value="b" id="q11b">
+                        <label for="q11b">B) How many times larger an object appears compared to its actual size</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" value="c" id="q11c">
+                        <label for="q11c">C) The size of the microscope lens</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" value="d" id="q11d">
+                        <label for="q11d">D) The distance between the lens and specimen</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback11"></div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-block">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">True or False: The eyepiece lens is the lens you look through at the top of the microscope.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q12" value="true" id="q12t">
+                        <label for="q12t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" value="false" id="q12f">
+                        <label for="q12f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback12"></div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-block">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">What is a specimen?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q13" value="a" id="q13a">
+                        <label for="q13a">A) The glass cover placed over a sample</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" value="b" id="q13b">
+                        <label for="q13b">B) The platform where slides are placed</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" value="c" id="q13c">
+                        <label for="q13c">C) The sample or object being observed under the microscope</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" value="d" id="q13d">
+                        <label for="q13d">D) The focusing wheel on a microscope</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback13"></div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-block">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">True or False: The coarse focusing wheel is used for making small, precise adjustments.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q14" value="true" id="q14t">
+                        <label for="q14t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" value="false" id="q14f">
+                        <label for="q14f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback14"></div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-block">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">If a microscope has an eyepiece lens of 10x and an objective lens of 40x, what is the total magnification?</div>
+                <div class="options">
+                    <input type="number" name="q15" id="q15" placeholder="Enter your answer">
+                </div>
+                <div class="feedback" id="feedback15"></div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-block">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Which of the following is the correct order when preparing a microscope slide? (Select the correct answer)</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q16" value="a" id="q16a">
+                        <label for="q16a">A) Coverslip → Water → Specimen → Slide</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" value="b" id="q16b">
+                        <label for="q16b">B) Slide → Water → Specimen → Coverslip</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" value="c" id="q16c">
+                        <label for="q16c">C) Specimen → Slide → Coverslip → Water</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" value="d" id="q16d">
+                        <label for="q16d">D) Water → Coverslip → Specimen → Slide</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback16"></div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-block">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">True or False: The diaphragm is a muscle that helps with breathing.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q17" value="true" id="q17t">
+                        <label for="q17t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" value="false" id="q17f">
+                        <label for="q17f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback17"></div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-block">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">What does the small intestine do?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q18" value="a" id="q18a">
+                        <label for="q18a">A) Absorbs water and forms waste</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" value="b" id="q18b">
+                        <label for="q18b">B) Completes digestion and absorbs nutrients into the bloodstream</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" value="c" id="q18c">
+                        <label for="q18c">C) Churns food with acid</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" value="d" id="q18d">
+                        <label for="q18d">D) Stores bile</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback18"></div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-block">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">True or False: Root hair cells are part of the plant water transport system.</div>
+                <div class="tf-options">
+                    <div class="option">
+                        <input type="radio" name="q19" value="true" id="q19t">
+                        <label for="q19t">True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" value="false" id="q19f">
+                        <label for="q19f">False</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback19"></div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-block">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">Which organ system controls and coordinates body functions using electrical signals?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q20" value="a" id="q20a">
+                        <label for="q20a">A) Circulatory system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" value="b" id="q20b">
+                        <label for="q20b">B) Nervous system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" value="c" id="q20c">
+                        <label for="q20c">C) Digestive system</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" value="d" id="q20d">
+                        <label for="q20d">D) Urinary system</label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback20"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Test</button>
+        </form>
+
+        <div class="results" id="results">
+            <div class="score" id="scoreDisplay"></div>
+            <div class="score-message" id="scoreMessage"></div>
+            <button class="reset-btn" onclick="resetTest()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: 'b',
+            q2: 'false',
+            q3: 'b',
+            q4: 'b',
+            q5: 'true',
+            q6: 'c',
+            q7: 'true',
+            q8: 'b',
+            q9: 'c',
+            q10: 'true',
+            q11: 'b',
+            q12: 'true',
+            q13: 'c',
+            q14: 'false',
+            q15: '400',
+            q16: 'b',
+            q17: 'true',
+            q18: 'b',
+            q19: 'true',
+            q20: 'b'
+        };
+
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let score = 0;
+            const totalQuestions = Object.keys(answers).length;
+
+            for (let question in answers) {
+                let userAnswer;
+                const feedback = document.getElementById('feedback' + question.substring(1));
+                
+                if (question === 'q15') {
+                    userAnswer = document.getElementById(question).value;
+                } else {
+                    const selected = document.querySelector(`input[name="${question}"]:checked`);
+                    userAnswer = selected ? selected.value : null;
+                }
+
+                if (userAnswer === answers[question]) {
+                    score++;
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✓ Correct!';
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = '✗ Incorrect. ';
+                    
+                    // Add correct answer explanation
+                    if (question === 'q15') {
+                        feedback.textContent += 'The correct answer is 400 (10 × 40 = 400).';
+                    }
+                }
+            }
+
+            const percentage = Math.round((score / totalQuestions) * 100);
+            
+            document.getElementById('scoreDisplay').textContent = `${score} / ${totalQuestions}`;
+            document.getElementById('scoreMessage').textContent = `You scored ${percentage}%`;
+            
+            document.getElementById('results').classList.add('show');
+            document.getElementById('testForm').style.display = 'none';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function resetTest() {
+            document.getElementById('testForm').reset();
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('testForm').style.display = 'block';
+            
+            const feedbacks = document.querySelectorAll('.feedback');
+            feedbacks.forEach(feedback => {
+                feedback.className = 'feedback';
+                feedback.textContent = '';
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
