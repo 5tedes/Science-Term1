@@ -3,78 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year 7 Science Practice Test - Part 2</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <title>Year 7 Science Advanced Practice Test - Part 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a5f7a; --primary-light: #2d8ab5; --secondary: #57c5b6; --accent: #159895; --bg: #f8fafb; --card: #ffffff; --text: #1a2b34; --text-light: #5a6d7a; --correct: #22c55e; --incorrect: #ef4444; --warning: #f59e0b; --border: #e2e8f0; }
+        :root { 
+            --primary: #2c3e50; 
+            --primary-light: #34495e; 
+            --secondary: #e74c3c; 
+            --accent: #c0392b; 
+            --bg: #ecf0f1; 
+            --card: #ffffff; 
+            --text: #2c3e50; 
+            --text-light: #7f8c8d; 
+            --correct: #27ae60; 
+            --incorrect: #e74c3c; 
+            --warning: #f39c12; 
+            --border: #bdc3c7; 
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 1.5rem; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(26, 95, 122, 0.3); }
-        .header h1 { font-family: 'DM Serif Display', serif; font-size: 1.75rem; margin-bottom: 0.25rem; }
-        .header-info { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.75rem; font-size: 0.9rem; }
-        .timer-container { background: rgba(255,255,255,0.15); padding: 0.5rem 1.25rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
-        .timer { font-size: 1.25rem; font-weight: 700; }
-        .timer.warning { color: var(--warning); animation: pulse 1s ease-in-out infinite; }
+        body { 
+            font-family: 'Work Sans', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.7; 
+        }
+        .header { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; 
+            padding: 2rem; 
+            text-align: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 20px rgba(44, 62, 80, 0.3); 
+            border-bottom: 4px solid var(--secondary);
+        }
+        .header h1 { 
+            font-family: 'Crimson Pro', serif; 
+            font-size: 2rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+        }
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 0.5rem;
+        }
+        .difficulty-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .header-info { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2rem; 
+            flex-wrap: wrap; 
+            margin-top: 1rem; 
+            font-size: 0.95rem; 
+        }
+        .timer-container { 
+            background: rgba(255,255,255,0.15); 
+            padding: 0.6rem 1.5rem; 
+            border-radius: 50px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            margin-top: 1rem; 
+        }
+        .timer { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+        }
+        .timer.warning { 
+            color: var(--warning); 
+            animation: pulse 1s ease-in-out infinite; 
+        }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-        .container { max-width: 850px; margin: 0 auto; padding: 1.5rem; }
-        .progress-bar { background: var(--border); height: 6px; border-radius: 3px; margin-bottom: 1.5rem; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); transition: width 0.3s ease; }
-        .section-header { background: var(--card); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border-left: 4px solid var(--accent); }
-        .section-header h2 { font-family: 'DM Serif Display', serif; color: var(--primary); font-size: 1.2rem; }
-        .section-header p { color: var(--text-light); margin-top: 0.25rem; font-size: 0.85rem; }
-        .question-card { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; border: 2px solid transparent; transition: all 0.3s ease; }
-        .question-card.correct { border-color: var(--correct); background: linear-gradient(to right, rgba(34, 197, 94, 0.05), transparent); }
-        .question-card.incorrect { border-color: var(--incorrect); background: linear-gradient(to right, rgba(239, 68, 68, 0.05), transparent); }
-        .question-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--secondary); color: white; border-radius: 50%; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.75rem; }
-        .question-type { display: inline-block; background: var(--bg); color: var(--text-light); padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.7rem; font-weight: 500; margin-left: 0.5rem; text-transform: uppercase; }
-        .question-text { font-size: 1rem; font-weight: 500; margin-bottom: 1rem; }
-        .options { display: flex; flex-direction: column; gap: 0.6rem; }
-        .option { display: flex; align-items: center; padding: 0.85rem 1rem; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
-        .option:hover { border-color: var(--primary-light); background: white; }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+        }
+        .progress-bar { 
+            background: var(--border); 
+            height: 8px; 
+            border-radius: 4px; 
+            margin-bottom: 2rem; 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--secondary), var(--accent)); 
+            transition: width 0.3s ease; 
+        }
+        .section-header { 
+            background: var(--card); 
+            border-radius: 12px; 
+            padding: 1.5rem 2rem; 
+            margin-bottom: 1.5rem; 
+            border-left: 5px solid var(--secondary); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section-header h2 { 
+            font-family: 'Crimson Pro', serif; 
+            color: var(--primary); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+        }
+        .section-header p { 
+            color: var(--text-light); 
+            margin-top: 0.5rem; 
+            font-size: 0.9rem; 
+        }
+        .question-card { 
+            background: var(--card); 
+            border-radius: 12px; 
+            padding: 2rem; 
+            margin-bottom: 1.5rem; 
+            border: 2px solid transparent; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .question-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .question-card.correct { 
+            border-color: var(--correct); 
+            background: linear-gradient(to right, rgba(39, 174, 96, 0.05), transparent); 
+        }
+        .question-card.incorrect { 
+            border-color: var(--incorrect); 
+            background: linear-gradient(to right, rgba(231, 76, 60, 0.05), transparent); 
+        }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .question-number { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 36px; 
+            height: 36px; 
+            background: var(--secondary); 
+            color: white; 
+            border-radius: 50%; 
+            font-weight: 700; 
+            font-size: 1rem; 
+        }
+        .question-type { 
+            display: inline-block; 
+            background: var(--bg); 
+            color: var(--text-light); 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 15px; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+        }
+        .question-type.challenging {
+            background: var(--warning);
+            color: white;
+        }
+        .question-text { 
+            font-size: 1.05rem; 
+            font-weight: 500; 
+            margin-bottom: 1.25rem; 
+            line-height: 1.7;
+        }
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.8rem; 
+        }
+        .option { 
+            display: flex; 
+            align-items: flex-start; 
+            padding: 1rem 1.25rem; 
+            background: var(--bg); 
+            border: 2px solid var(--border); 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+        }
+        .option:hover { 
+            border-color: var(--primary); 
+            background: white; 
+            transform: translateX(4px);
+        }
         .option input { display: none; }
-        .option-marker { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 50%; margin-right: 0.75rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
-        .option input:checked + .option-marker { background: var(--primary); border-color: var(--primary); }
-        .option input:checked + .option-marker::after { content: ''; width: 6px; height: 6px; background: white; border-radius: 50%; }
-        .option.correct-answer { border-color: var(--correct); background: rgba(34, 197, 94, 0.1); }
-        .option.correct-answer .option-marker { background: var(--correct); border-color: var(--correct); }
-        .option.wrong-answer { border-color: var(--incorrect); background: rgba(239, 68, 68, 0.1); }
-        .tf-options { display: flex; gap: 0.75rem; }
-        .tf-options .option { flex: 1; justify-content: center; font-weight: 600; }
-        .feedback { margin-top: 0.75rem; padding: 0.75rem; border-radius: 8px; display: none; font-size: 0.9rem; }
+        .option-marker { 
+            width: 22px; 
+            height: 22px; 
+            border: 2px solid var(--border); 
+            border-radius: 50%; 
+            margin-right: 1rem; 
+            margin-top: 2px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: all 0.2s ease; 
+            flex-shrink: 0; 
+        }
+        .option input:checked + .option-marker { 
+            background: var(--primary); 
+            border-color: var(--primary); 
+        }
+        .option input:checked + .option-marker::after { 
+            content: ''; 
+            width: 8px; 
+            height: 8px; 
+            background: white; 
+            border-radius: 50%; 
+        }
+        .option.correct-answer { 
+            border-color: var(--correct); 
+            background: rgba(39, 174, 96, 0.1); 
+        }
+        .option.correct-answer .option-marker { 
+            background: var(--correct); 
+            border-color: var(--correct); 
+        }
+        .option.wrong-answer { 
+            border-color: var(--incorrect); 
+            background: rgba(231, 76, 60, 0.1); 
+        }
+        .tf-options { 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem; 
+        }
+        .tf-options .option { 
+            justify-content: center; 
+            font-weight: 600; 
+        }
+        .feedback { 
+            margin-top: 1rem; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            display: none; 
+            font-size: 0.95rem; 
+            line-height: 1.6;
+        }
         .feedback.show { display: block; }
-        .feedback.correct { background: rgba(34, 197, 94, 0.1); color: #166534; }
-        .feedback.incorrect { background: rgba(239, 68, 68, 0.1); color: #991b1b; }
-        .submit-container { text-align: center; padding: 2rem; background: var(--card); border-radius: 12px; margin-top: 1.5rem; }
-        .submit-btn { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; border: none; padding: 0.9rem 2.5rem; font-size: 1rem; font-weight: 600; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(26, 95, 122, 0.4); }
-        .results-container { display: none; text-align: center; padding: 2rem; background: var(--card); border-radius: 12px; margin-top: 1.5rem; }
+        .feedback.correct { 
+            background: rgba(39, 174, 96, 0.1); 
+            color: #1e7e34; 
+            border-left: 4px solid var(--correct);
+        }
+        .feedback.incorrect { 
+            background: rgba(231, 76, 60, 0.1); 
+            color: #c0392b; 
+            border-left: 4px solid var(--incorrect);
+        }
+        .submit-container { 
+            text-align: center; 
+            padding: 2.5rem; 
+            background: var(--card); 
+            border-radius: 12px; 
+            margin-top: 2rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .submit-btn { 
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%); 
+            color: white; 
+            border: none; 
+            padding: 1rem 3rem; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .submit-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4); 
+        }
+        .results-container { 
+            display: none; 
+            text-align: center; 
+            padding: 2.5rem; 
+            background: var(--card); 
+            border-radius: 12px; 
+            margin-top: 2rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
         .results-container.show { display: block; }
-        .score-circle { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--accent) var(--score-percent), var(--border) var(--score-percent)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
-        .score-inner { width: 120px; height: 120px; border-radius: 50%; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .score-value { font-size: 2rem; font-weight: 700; color: var(--primary); }
-        .score-label { color: var(--text-light); font-size: 0.85rem; }
-        .grade-badge { display: inline-block; padding: 0.4rem 1.25rem; border-radius: 20px; font-weight: 600; margin-top: 0.75rem; }
-        .grade-a { background: rgba(34, 197, 94, 0.15); color: #166534; }
-        .grade-b { background: rgba(59, 130, 246, 0.15); color: #1e40af; }
-        .grade-c { background: rgba(245, 158, 11, 0.15); color: #92400e; }
-        .grade-d { background: rgba(239, 68, 68, 0.15); color: #991b1b; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 1.5rem; }
-        .stat-card { background: var(--bg); padding: 1rem; border-radius: 10px; }
-        .stat-value { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 0.8rem; color: var(--text-light); }
-        .review-btn { background: var(--bg); color: var(--primary); border: 2px solid var(--primary); padding: 0.6rem 1.5rem; font-size: 0.95rem; font-weight: 600; border-radius: 50px; cursor: pointer; margin-top: 1.5rem; transition: all 0.2s ease; }
-        .review-btn:hover { background: var(--primary); color: white; }
-        .instructions { background: linear-gradient(135deg, rgba(87, 197, 182, 0.1) 0%, rgba(21, 152, 149, 0.1) 100%); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(21, 152, 149, 0.2); }
-        .instructions h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem; }
-        .instructions ul { color: var(--text-light); margin-left: 1.25rem; font-size: 0.9rem; }
-        .instructions li { margin-bottom: 0.25rem; }
-        @media (max-width: 640px) { .header h1 { font-size: 1.25rem; } .container { padding: 1rem; } .stats-grid { grid-template-columns: 1fr; } .tf-options { flex-direction: column; } }
+        .score-circle { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            background: conic-gradient(var(--secondary) var(--score-percent), var(--border) var(--score-percent)); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 2rem; 
+        }
+        .score-inner { 
+            width: 145px; 
+            height: 145px; 
+            border-radius: 50%; 
+            background: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .score-value { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            font-family: 'Crimson Pro', serif;
+        }
+        .score-label { 
+            color: var(--text-light); 
+            font-size: 0.9rem; 
+        }
+        .grade-badge { 
+            display: inline-block; 
+            padding: 0.5rem 1.5rem; 
+            border-radius: 25px; 
+            font-weight: 600; 
+            margin-top: 1rem; 
+            font-size: 1.1rem;
+        }
+        .grade-a { background: rgba(39, 174, 96, 0.15); color: #1e7e34; }
+        .grade-b { background: rgba(52, 152, 219, 0.15); color: #1e40af; }
+        .grade-c { background: rgba(243, 156, 18, 0.15); color: #92400e; }
+        .grade-d { background: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 1rem; 
+            margin-top: 2rem; 
+        }
+        .stat-card { 
+            background: var(--bg); 
+            padding: 1.25rem; 
+            border-radius: 10px; 
+        }
+        .stat-value { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+        }
+        .stat-label { 
+            font-size: 0.85rem; 
+            color: var(--text-light); 
+            margin-top: 0.25rem;
+        }
+        .review-btn { 
+            background: var(--bg); 
+            color: var(--primary); 
+            border: 2px solid var(--primary); 
+            padding: 0.8rem 2rem; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin-top: 2rem; 
+            transition: all 0.2s ease; 
+        }
+        .review-btn:hover { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .instructions { 
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(192, 57, 43, 0.1) 100%); 
+            border-radius: 12px; 
+            padding: 1.5rem 2rem; 
+            margin-bottom: 2rem; 
+            border: 2px solid rgba(231, 76, 60, 0.2); 
+        }
+        .instructions h3 { 
+            color: var(--secondary); 
+            margin-bottom: 0.75rem; 
+            font-size: 1.1rem; 
+            font-weight: 700;
+        }
+        .instructions ul { 
+            color: var(--text-light); 
+            margin-left: 1.5rem; 
+            font-size: 0.95rem; 
+        }
+        .instructions li { 
+            margin-bottom: 0.4rem; 
+        }
+        @media (max-width: 640px) { 
+            .header h1 { font-size: 1.5rem; } 
+            .container { padding: 1rem; } 
+            .stats-grid { grid-template-columns: 1fr; } 
+            .tf-options { grid-template-columns: 1fr; } 
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>🧪 Year 7 Science Practice Test - Part 2</h1>
-        <p>Questions 26-50 | Mixtures & Separation</p>
+        <h1>⚗️ Year 7 Science Advanced Practice Test - Part 2</h1>
+        <p class="subtitle">Questions 26-50 | Mixtures & Separation</p>
+        <span class="difficulty-badge">⚡ ADVANCED LEVEL</span>
         <div class="header-info">
             <span>📚 Chapter 7E</span>
             <span>❓ 25 Questions</span>
@@ -90,57 +425,71 @@
         <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
 
         <div class="instructions">
-            <h3>📋 Instructions</h3>
+            <h3>📋 Instructions - Read Carefully!</h3>
             <ul>
+                <li>This is an <strong>advanced level</strong> practice test with more challenging questions</li>
                 <li>25 questions worth 2 marks each (50 marks total)</li>
                 <li>Time allowed: 45 minutes</li>
-                <li>Click an option to select your answer</li>
+                <li>Questions require deeper understanding and application of concepts</li>
+                <li>Read each question carefully - some require analysis of scenarios</li>
                 <li>Click "Submit Test" when finished</li>
             </ul>
         </div>
 
         <form id="quizForm">
-            <div class="section-header"><h2>Section A: Forensic Science & Filtration</h2><p>Questions 26-32</p></div>
+            <div class="section-header"><h2>Section A: Filtration & Separation Techniques</h2><p>Questions 26-33</p></div>
 
-            <div class="question-card" data-question="26" data-answer="b">
-                <span class="question-number">26</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is filtration used to separate?</p>
+            <div class="question-card" data-question="26" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">26</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A forensic scientist has a mixture of sand, salt, and water from a crime scene. Which separation technique should be used FIRST, and why?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q26" value="a"><span class="option-marker"></span><span>Two liquids</span></label>
-                    <label class="option"><input type="radio" name="q26" value="b"><span class="option-marker"></span><span>A solid from a liquid</span></label>
-                    <label class="option"><input type="radio" name="q26" value="c"><span class="option-marker"></span><span>Two gases</span></label>
-                    <label class="option"><input type="radio" name="q26" value="d"><span class="option-marker"></span><span>A solute from a solvent</span></label>
+                    <label class="option"><input type="radio" name="q26" value="a"><span class="option-marker"></span><span>Evaporation - to remove the water first</span></label>
+                    <label class="option"><input type="radio" name="q26" value="b"><span class="option-marker"></span><span>Distillation - to purify all components</span></label>
+                    <label class="option"><input type="radio" name="q26" value="c"><span class="option-marker"></span><span>Filtration - to separate the insoluble sand from the salt solution</span></label>
+                    <label class="option"><input type="radio" name="q26" value="d"><span class="option-marker"></span><span>Crystallization - to get the salt crystals out</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="27" data-answer="c">
-                <span class="question-number">27</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is the solid that remains on the filter paper after filtration called?</p>
+            <div class="question-card" data-question="27" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">27</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">After filtering a mixture of chalk powder and water, a student notices that the filtrate is still slightly cloudy. What is the MOST likely explanation?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q27" value="a"><span class="option-marker"></span><span>Filtrate</span></label>
-                    <label class="option"><input type="radio" name="q27" value="b"><span class="option-marker"></span><span>Solution</span></label>
-                    <label class="option"><input type="radio" name="q27" value="c"><span class="option-marker"></span><span>Residue</span></label>
-                    <label class="option"><input type="radio" name="q27" value="d"><span class="option-marker"></span><span>Sediment</span></label>
+                    <label class="option"><input type="radio" name="q27" value="a"><span class="option-marker"></span><span>Filtration cannot separate solids from liquids</span></label>
+                    <label class="option"><input type="radio" name="q27" value="b"><span class="option-marker"></span><span>All the chalk went into the residue</span></label>
+                    <label class="option"><input type="radio" name="q27" value="c"><span class="option-marker"></span><span>The chalk dissolved in the water</span></label>
+                    <label class="option"><input type="radio" name="q27" value="d"><span class="option-marker"></span><span>Some chalk particles are small enough to pass through the filter paper pores</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="28" data-answer="a">
-                <span class="question-number">28</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is the liquid that passes through the filter paper called?</p>
+            <div class="question-card" data-question="28" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">28</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A scientist filters a mixture and finds that BOTH the residue and filtrate are needed for further analysis. What must they ensure during the filtration process?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q28" value="a"><span class="option-marker"></span><span>Filtrate</span></label>
-                    <label class="option"><input type="radio" name="q28" value="b"><span class="option-marker"></span><span>Residue</span></label>
-                    <label class="option"><input type="radio" name="q28" value="c"><span class="option-marker"></span><span>Mixture</span></label>
-                    <label class="option"><input type="radio" name="q28" value="d"><span class="option-marker"></span><span>Colloid</span></label>
+                    <label class="option"><input type="radio" name="q28" value="a"><span class="option-marker"></span><span>That the funnel is as small as possible</span></label>
+                    <label class="option"><input type="radio" name="q28" value="b"><span class="option-marker"></span><span>That both the residue on the filter paper and the filtrate in the collection beaker are properly collected and labeled</span></label>
+                    <label class="option"><input type="radio" name="q28" value="c"><span class="option-marker"></span><span>That they filter the mixture multiple times</span></label>
+                    <label class="option"><input type="radio" name="q28" value="d"><span class="option-marker"></span><span>That they use hot water for filtration</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="29" data-answer="true">
-                <span class="question-number">29</span><span class="question-type">True/False</span>
-                <p class="question-text">A funnel is used to support filter paper during filtration.</p>
+            <div class="question-card" data-question="29" data-answer="false">
+                <div class="question-header">
+                    <span class="question-number">29</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">If you filter a sugar solution, the sugar will remain in the residue because it is a solid.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q29" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q29" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -148,33 +497,42 @@
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="30" data-answer="d">
-                <span class="question-number">30</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which piece of apparatus is used to collect the filtrate during filtration?</p>
+            <div class="question-card" data-question="30" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">30</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A student sets up filtration equipment incorrectly and the filter paper tears during filtration. What would be the consequence?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q30" value="a"><span class="option-marker"></span><span>Funnel</span></label>
-                    <label class="option"><input type="radio" name="q30" value="b"><span class="option-marker"></span><span>Filter paper</span></label>
-                    <label class="option"><input type="radio" name="q30" value="c"><span class="option-marker"></span><span>Beaker (on top)</span></label>
-                    <label class="option"><input type="radio" name="q30" value="d"><span class="option-marker"></span><span>Beaker or conical flask (below)</span></label>
+                    <label class="option"><input type="radio" name="q30" value="a"><span class="option-marker"></span><span>The filtration would work better</span></label>
+                    <label class="option"><input type="radio" name="q30" value="b"><span class="option-marker"></span><span>Only water would pass through</span></label>
+                    <label class="option"><input type="radio" name="q30" value="c"><span class="option-marker"></span><span>Solid particles from the residue would contaminate the filtrate</span></label>
+                    <label class="option"><input type="radio" name="q30" value="d"><span class="option-marker"></span><span>The mixture would evaporate</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="31" data-answer="b">
-                <span class="question-number">31</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">If you filter a mixture of sand and water, what will be in the residue?</p>
+            <div class="question-card" data-question="31" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">31</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">You have a mixture of sand, salt, and iron filings. You need to separate all three components. Which sequence of separation techniques would be MOST effective?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q31" value="a"><span class="option-marker"></span><span>Water</span></label>
-                    <label class="option"><input type="radio" name="q31" value="b"><span class="option-marker"></span><span>Sand</span></label>
-                    <label class="option"><input type="radio" name="q31" value="c"><span class="option-marker"></span><span>Both sand and water</span></label>
-                    <label class="option"><input type="radio" name="q31" value="d"><span class="option-marker"></span><span>Neither sand nor water</span></label>
+                    <label class="option"><input type="radio" name="q31" value="a"><span class="option-marker"></span><span>Filtration → Evaporation → Magnetism</span></label>
+                    <label class="option"><input type="radio" name="q31" value="b"><span class="option-marker"></span><span>Evaporation → Filtration → Magnetism</span></label>
+                    <label class="option"><input type="radio" name="q31" value="c"><span class="option-marker"></span><span>Magnetism → Add water → Filtration → Evaporation</span></label>
+                    <label class="option"><input type="radio" name="q31" value="d"><span class="option-marker"></span><span>Add water → Evaporation → Magnetism → Filtration</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="32" data-answer="false">
-                <span class="question-number">32</span><span class="question-type">True/False</span>
-                <p class="question-text">Filtration can be used to separate salt dissolved in water.</p>
+            <div class="question-card" data-question="32" data-answer="true">
+                <div class="question-header">
+                    <span class="question-number">32</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">The reason filtration cannot separate dissolved substances is because dissolved particles are at the molecular level and are too small to be trapped by filter paper.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q32" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q32" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -182,59 +540,74 @@
                 <div class="feedback"></div>
             </div>
 
-            <div class="section-header"><h2>Section B: Mixtures</h2><p>Questions 33-40</p></div>
-
-            <div class="question-card" data-question="33" data-answer="a">
-                <span class="question-number">33</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a mixture?</p>
+            <div class="question-card" data-question="33" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">33</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">In water treatment plants, filtration is used to remove solid particles from drinking water. Why is this an important step BEFORE the water reaches homes?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q33" value="a"><span class="option-marker"></span><span>Two or more substances mixed together but not chemically combined</span></label>
-                    <label class="option"><input type="radio" name="q33" value="b"><span class="option-marker"></span><span>A pure substance with only one type of particle</span></label>
-                    <label class="option"><input type="radio" name="q33" value="c"><span class="option-marker"></span><span>Two or more elements chemically bonded together</span></label>
-                    <label class="option"><input type="radio" name="q33" value="d"><span class="option-marker"></span><span>A substance that cannot be separated</span></label>
+                    <label class="option"><input type="radio" name="q33" value="a"><span class="option-marker"></span><span>To make the water taste better by removing all minerals</span></label>
+                    <label class="option"><input type="radio" name="q33" value="b"><span class="option-marker"></span><span>To remove potentially harmful solid particles and make water clear and safe to drink</span></label>
+                    <label class="option"><input type="radio" name="q33" value="c"><span class="option-marker"></span><span>To add chemicals to the water</span></label>
+                    <label class="option"><input type="radio" name="q33" value="d"><span class="option-marker"></span><span>Filtration is not actually used in water treatment</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="34" data-answer="c">
-                <span class="question-number">34</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a solution?</p>
+            <div class="section-header"><h2>Section B: Types of Mixtures</h2><p>Questions 34-42</p></div>
+
+            <div class="question-card" data-question="34" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">34</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A chemist has three beakers: Beaker A contains clear saltwater, Beaker B contains muddy water where particles settle, and Beaker C contains milk which is cloudy but particles don't settle. Classify each mixture correctly.</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q34" value="a"><span class="option-marker"></span><span>A cloudy mixture where particles settle</span></label>
-                    <label class="option"><input type="radio" name="q34" value="b"><span class="option-marker"></span><span>A mixture where solid particles remain on the surface</span></label>
-                    <label class="option"><input type="radio" name="q34" value="c"><span class="option-marker"></span><span>A mixture where a substance has completely dissolved to form a transparent mixture</span></label>
-                    <label class="option"><input type="radio" name="q34" value="d"><span class="option-marker"></span><span>Any mixture of two or more substances</span></label>
+                    <label class="option"><input type="radio" name="q34" value="a"><span class="option-marker"></span><span>A = Suspension, B = Solution, C = Colloid</span></label>
+                    <label class="option"><input type="radio" name="q34" value="b"><span class="option-marker"></span><span>A = Colloid, B = Suspension, C = Solution</span></label>
+                    <label class="option"><input type="radio" name="q34" value="c"><span class="option-marker"></span><span>A = Suspension, B = Colloid, C = Solution</span></label>
+                    <label class="option"><input type="radio" name="q34" value="d"><span class="option-marker"></span><span>A = Solution, B = Suspension, C = Colloid</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="35" data-answer="b">
-                <span class="question-number">35</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a suspension?</p>
+            <div class="question-card" data-question="35" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">35</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A student makes orange juice by squeezing fresh oranges. After a few minutes, they notice pulp settling at the bottom. What type of mixture is this fresh orange juice, and what does the settling indicate?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q35" value="a"><span class="option-marker"></span><span>A clear mixture where everything has dissolved</span></label>
-                    <label class="option"><input type="radio" name="q35" value="b"><span class="option-marker"></span><span>A cloudy mixture where solid particles will settle over time</span></label>
-                    <label class="option"><input type="radio" name="q35" value="c"><span class="option-marker"></span><span>A mixture where particles are permanently floating</span></label>
-                    <label class="option"><input type="radio" name="q35" value="d"><span class="option-marker"></span><span>A pure substance with no particles</span></label>
+                    <label class="option"><input type="radio" name="q35" value="a"><span class="option-marker"></span><span>Solution - the pulp is dissolved</span></label>
+                    <label class="option"><input type="radio" name="q35" value="b"><span class="option-marker"></span><span>Colloid - the pulp stays suspended permanently</span></label>
+                    <label class="option"><input type="radio" name="q35" value="c"><span class="option-marker"></span><span>Suspension - the pulp particles are large enough to settle over time</span></label>
+                    <label class="option"><input type="radio" name="q35" value="d"><span class="option-marker"></span><span>Pure substance - orange juice contains only one component</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="36" data-answer="d">
-                <span class="question-number">36</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a colloid?</p>
+            <div class="question-card" data-question="36" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">36</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">Why is smoke considered a colloid rather than a suspension, even though both appear cloudy?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q36" value="a"><span class="option-marker"></span><span>A completely transparent mixture</span></label>
-                    <label class="option"><input type="radio" name="q36" value="b"><span class="option-marker"></span><span>A mixture where particles settle quickly</span></label>
-                    <label class="option"><input type="radio" name="q36" value="c"><span class="option-marker"></span><span>A pure substance</span></label>
-                    <label class="option"><input type="radio" name="q36" value="d"><span class="option-marker"></span><span>A cloudy mixture where particles stay suspended and don't settle</span></label>
+                    <label class="option"><input type="radio" name="q36" value="a"><span class="option-marker"></span><span>Smoke is actually a solution, not a colloid</span></label>
+                    <label class="option"><input type="radio" name="q36" value="b"><span class="option-marker"></span><span>In smoke, tiny solid particles stay suspended in air indefinitely without settling, unlike suspension particles which eventually settle</span></label>
+                    <label class="option"><input type="radio" name="q36" value="c"><span class="option-marker"></span><span>Smoke particles are dissolved in air</span></label>
+                    <label class="option"><input type="radio" name="q36" value="d"><span class="option-marker"></span><span>Smoke is transparent, not cloudy</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="37" data-answer="true">
-                <span class="question-number">37</span><span class="question-type">True/False</span>
-                <p class="question-text">An opaque substance does not allow light to pass through it.</p>
+            <div class="question-card" data-question="37" data-answer="false">
+                <div class="question-header">
+                    <span class="question-number">37</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">All cloudy mixtures are suspensions.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q37" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q37" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -242,163 +615,206 @@
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="38" data-answer="true">
-                <span class="question-number">38</span><span class="question-type">True/False</span>
-                <p class="question-text">A transparent substance allows light to pass through it clearly.</p>
+            <div class="question-card" data-question="38" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">38</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A student wants to determine if a clear liquid in a beaker is pure water or a salt solution. Which method would work BEST?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q38" value="a"><span class="option-marker"></span><span>Looking at it carefully - pure water looks different</span></label>
+                    <label class="option"><input type="radio" name="q38" value="b"><span class="option-marker"></span><span>Filtering it - salt will stay in the residue</span></label>
+                    <label class="option"><input type="radio" name="q38" value="c"><span class="option-marker"></span><span>Evaporating some of the liquid - if salt crystals remain, it was a solution</span></label>
+                    <label class="option"><input type="radio" name="q38" value="d"><span class="option-marker"></span><span>Measuring the temperature - salt solutions are always warmer</span></label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-card" data-question="39" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">39</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">Air is a mixture of nitrogen, oxygen, carbon dioxide, and other gases. Why is air considered a mixture rather than a pure substance?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q39" value="a"><span class="option-marker"></span><span>Because air is invisible</span></label>
+                    <label class="option"><input type="radio" name="q39" value="b"><span class="option-marker"></span><span>Because air contains water vapor</span></label>
+                    <label class="option"><input type="radio" name="q39" value="c"><span class="option-marker"></span><span>Because air is transparent</span></label>
+                    <label class="option"><input type="radio" name="q39" value="d"><span class="option-marker"></span><span>Because air contains multiple different substances that are not chemically bonded and can be separated</span></label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-card" data-question="40" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">40</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A food scientist needs to create a product with a long shelf life. They observe that suspensions tend to separate over time while solutions remain mixed. What does this suggest about which type of mixture would be better for their product?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q40" value="a"><span class="option-marker"></span><span>Suspensions would be better because they show the natural separation</span></label>
+                    <label class="option"><input type="radio" name="q40" value="b"><span class="option-marker"></span><span>Solutions would be better because they remain uniformly mixed without separating</span></label>
+                    <label class="option"><input type="radio" name="q40" value="c"><span class="option-marker"></span><span>Both would work equally well</span></label>
+                    <label class="option"><input type="radio" name="q40" value="d"><span class="option-marker"></span><span>Neither solutions nor suspensions can be used in food products</span></label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-card" data-question="41" data-answer="true">
+                <div class="question-header">
+                    <span class="question-number">41</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">Sea water is an impure substance because it contains dissolved salts and minerals, not just pure H₂O molecules.</p>
                 <div class="options tf-options">
-                    <label class="option"><input type="radio" name="q38" value="true"><span class="option-marker"></span><span>True</span></label>
-                    <label class="option"><input type="radio" name="q38" value="false"><span class="option-marker"></span><span>False</span></label>
+                    <label class="option"><input type="radio" name="q41" value="true"><span class="option-marker"></span><span>True</span></label>
+                    <label class="option"><input type="radio" name="q41" value="false"><span class="option-marker"></span><span>False</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="39" data-answer="b">
-                <span class="question-number">39</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which of the following is a pure substance?</p>
+            <div class="question-card" data-question="42" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">42</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A chemist has a mixture where light can pass through but the path of the light beam becomes visible (known as the Tyndall effect). What does this observation tell us about the mixture?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q39" value="a"><span class="option-marker"></span><span>Salt water</span></label>
-                    <label class="option"><input type="radio" name="q39" value="b"><span class="option-marker"></span><span>Pure water (H₂O only)</span></label>
-                    <label class="option"><input type="radio" name="q39" value="c"><span class="option-marker"></span><span>Air</span></label>
-                    <label class="option"><input type="radio" name="q39" value="d"><span class="option-marker"></span><span>Soil</span></label>
+                    <label class="option"><input type="radio" name="q42" value="a"><span class="option-marker"></span><span>It is definitely a solution because light passes through</span></label>
+                    <label class="option"><input type="radio" name="q42" value="b"><span class="option-marker"></span><span>It is definitely a suspension because particles are present</span></label>
+                    <label class="option"><input type="radio" name="q42" value="c"><span class="option-marker"></span><span>It is likely a colloid - particles are large enough to scatter light but small enough to stay suspended</span></label>
+                    <label class="option"><input type="radio" name="q42" value="d"><span class="option-marker"></span><span>It is a pure substance with no particles</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="40" data-answer="c">
-                <span class="question-number">40</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is an impure substance?</p>
+            <div class="section-header"><h2>Section C: Solutions & Solubility</h2><p>Questions 43-50</p></div>
+
+            <div class="question-card" data-question="43" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">43</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A student adds sugar to cold water and stirs. Some sugar dissolves but some remains at the bottom even after stirring for several minutes. The student then heats the water and all the sugar dissolves. What can be concluded?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q40" value="a"><span class="option-marker"></span><span>A substance containing only one type of particle</span></label>
-                    <label class="option"><input type="radio" name="q40" value="b"><span class="option-marker"></span><span>A substance that has never been mixed with anything</span></label>
-                    <label class="option"><input type="radio" name="q40" value="c"><span class="option-marker"></span><span>A substance that contains more than one type of particle mixed together</span></label>
-                    <label class="option"><input type="radio" name="q40" value="d"><span class="option-marker"></span><span>A substance that is completely transparent</span></label>
+                    <label class="option"><input type="radio" name="q43" value="a"><span class="option-marker"></span><span>Sugar is insoluble in water</span></label>
+                    <label class="option"><input type="radio" name="q43" value="b"><span class="option-marker"></span><span>The student didn't stir long enough in cold water</span></label>
+                    <label class="option"><input type="radio" name="q43" value="c"><span class="option-marker"></span><span>Temperature affects solubility - more sugar can dissolve in hot water than cold water</span></label>
+                    <label class="option"><input type="radio" name="q43" value="d"><span class="option-marker"></span><span>Sugar only dissolves in hot water, not cold water</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="section-header"><h2>Section C: Solutions</h2><p>Questions 41-50</p></div>
-
-            <div class="question-card" data-question="41" data-answer="b">
-                <span class="question-number">41</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a solute?</p>
+            <div class="question-card" data-question="44" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">44</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">When making a salt solution, a student notices that after adding 36g of salt to 100ml of water at room temperature, no more salt will dissolve. What has occurred?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q41" value="a"><span class="option-marker"></span><span>The liquid that does the dissolving</span></label>
-                    <label class="option"><input type="radio" name="q41" value="b"><span class="option-marker"></span><span>The substance that dissolves</span></label>
-                    <label class="option"><input type="radio" name="q41" value="c"><span class="option-marker"></span><span>The mixture formed when something dissolves</span></label>
-                    <label class="option"><input type="radio" name="q41" value="d"><span class="option-marker"></span><span>A substance that cannot dissolve</span></label>
+                    <label class="option"><input type="radio" name="q44" value="a"><span class="option-marker"></span><span>The salt has become insoluble</span></label>
+                    <label class="option"><input type="radio" name="q44" value="b"><span class="option-marker"></span><span>The water has evaporated</span></label>
+                    <label class="option"><input type="radio" name="q44" value="c"><span class="option-marker"></span><span>The solution needs to be filtered</span></label>
+                    <label class="option"><input type="radio" name="q44" value="d"><span class="option-marker"></span><span>The solution has become saturated - the solvent cannot dissolve any more solute at this temperature</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="42" data-answer="a">
-                <span class="question-number">42</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a solvent?</p>
+            <div class="question-card" data-question="45" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">45</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A factory needs to separate salt from seawater to produce table salt. They heat large shallow pools of seawater in the sun. What is the scientific principle behind this method?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q42" value="a"><span class="option-marker"></span><span>The liquid that does the dissolving</span></label>
-                    <label class="option"><input type="radio" name="q42" value="b"><span class="option-marker"></span><span>The substance that dissolves</span></label>
-                    <label class="option"><input type="radio" name="q42" value="c"><span class="option-marker"></span><span>Any solid substance</span></label>
-                    <label class="option"><input type="radio" name="q42" value="d"><span class="option-marker"></span><span>A substance that will not dissolve</span></label>
+                    <label class="option"><input type="radio" name="q45" value="a"><span class="option-marker"></span><span>Filtration - the salt is filtered out naturally</span></label>
+                    <label class="option"><input type="radio" name="q45" value="b"><span class="option-marker"></span><span>Evaporation - the water evaporates leaving salt crystals behind</span></label>
+                    <label class="option"><input type="radio" name="q45" value="c"><span class="option-marker"></span><span>Crystallization through cooling the water</span></label>
+                    <label class="option"><input type="radio" name="q45" value="d"><span class="option-marker"></span><span>Magnetic separation of salt from water</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="43" data-answer="true">
-                <span class="question-number">43</span><span class="question-type">True/False</span>
-                <p class="question-text">A substance that is soluble will dissolve in a liquid.</p>
+            <div class="question-card" data-question="46" data-answer="false">
+                <div class="question-header">
+                    <span class="question-number">46</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">Oil is soluble in water, which is why oil spills spread across the ocean surface.</p>
                 <div class="options tf-options">
-                    <label class="option"><input type="radio" name="q43" value="true"><span class="option-marker"></span><span>True</span></label>
-                    <label class="option"><input type="radio" name="q43" value="false"><span class="option-marker"></span><span>False</span></label>
+                    <label class="option"><input type="radio" name="q46" value="true"><span class="option-marker"></span><span>True</span></label>
+                    <label class="option"><input type="radio" name="q46" value="false"><span class="option-marker"></span><span>False</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="44" data-answer="false">
-                <span class="question-number">44</span><span class="question-type">True/False</span>
-                <p class="question-text">An insoluble substance will dissolve in a liquid.</p>
-                <div class="options tf-options">
-                    <label class="option"><input type="radio" name="q44" value="true"><span class="option-marker"></span><span>True</span></label>
-                    <label class="option"><input type="radio" name="q44" value="false"><span class="option-marker"></span><span>False</span></label>
+            <div class="question-card" data-question="47" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">47</span>
+                    <span class="question-type challenging">Analysis</span>
                 </div>
-                <div class="feedback"></div>
-            </div>
-
-            <div class="question-card" data-question="45" data-answer="c">
-                <span class="question-number">45</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What does 'solubility' mean?</p>
+                <p class="question-text">Two students each make a copper sulfate solution using 100ml of water. Student A uses cold water and can only dissolve 20g of copper sulfate before it becomes saturated. Student B uses hot water and dissolves 40g before saturation. What does this demonstrate?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q45" value="a"><span class="option-marker"></span><span>Whether a substance is solid or liquid</span></label>
-                    <label class="option"><input type="radio" name="q45" value="b"><span class="option-marker"></span><span>How quickly a substance dissolves</span></label>
-                    <label class="option"><input type="radio" name="q45" value="c"><span class="option-marker"></span><span>How much of a substance can dissolve in a certain amount of solvent</span></label>
-                    <label class="option"><input type="radio" name="q45" value="d"><span class="option-marker"></span><span>The temperature at which something dissolves</span></label>
+                    <label class="option"><input type="radio" name="q47" value="a"><span class="option-marker"></span><span>Student B had purer water</span></label>
+                    <label class="option"><input type="radio" name="q47" value="b"><span class="option-marker"></span><span>Student A didn't stir properly</span></label>
+                    <label class="option"><input type="radio" name="q47" value="c"><span class="option-marker"></span><span>Solubility increases with temperature - hot water can dissolve more solute than cold water</span></label>
+                    <label class="option"><input type="radio" name="q47" value="d"><span class="option-marker"></span><span>Copper sulfate is insoluble in cold water</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="46" data-answer="d">
-                <span class="question-number">46</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is evaporation used for?</p>
+            <div class="question-card" data-question="48" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">48</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">During an evaporation experiment, a student heats a salt solution too strongly and notices some salt "spitting" out of the dish and the solution boiling violently. What would be a better approach?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q46" value="a"><span class="option-marker"></span><span>Separating two liquids</span></label>
-                    <label class="option"><input type="radio" name="q46" value="b"><span class="option-marker"></span><span>Separating an insoluble solid from a liquid</span></label>
-                    <label class="option"><input type="radio" name="q46" value="c"><span class="option-marker"></span><span>Mixing two substances together</span></label>
-                    <label class="option"><input type="radio" name="q46" value="d"><span class="option-marker"></span><span>Separating a dissolved solid (solute) from a solution</span></label>
+                    <label class="option"><input type="radio" name="q48" value="a"><span class="option-marker"></span><span>Heat it even more strongly to evaporate faster</span></label>
+                    <label class="option"><input type="radio" name="q48" value="b"><span class="option-marker"></span><span>Add more water to prevent boiling</span></label>
+                    <label class="option"><input type="radio" name="q48" value="c"><span class="option-marker"></span><span>Use filtration instead of evaporation</span></label>
+                    <label class="option"><input type="radio" name="q48" value="d"><span class="option-marker"></span><span>Use gentle heating to allow slow, controlled evaporation without vigorous boiling</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="47" data-answer="b">
-                <span class="question-number">47</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What apparatus is used to heat a solution during evaporation?</p>
+            <div class="question-card" data-question="49" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">49</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A hot, saturated solution of potassium nitrate is left to cool slowly. Crystals begin to form as it cools. Why does this happen?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q47" value="a"><span class="option-marker"></span><span>Funnel</span></label>
-                    <label class="option"><input type="radio" name="q47" value="b"><span class="option-marker"></span><span>Evaporating dish (or basin) and Bunsen burner</span></label>
-                    <label class="option"><input type="radio" name="q47" value="c"><span class="option-marker"></span><span>Filter paper</span></label>
-                    <label class="option"><input type="radio" name="q47" value="d"><span class="option-marker"></span><span>Conical flask</span></label>
+                    <label class="option"><input type="radio" name="q49" value="a"><span class="option-marker"></span><span>The potassium nitrate is reacting with the air</span></label>
+                    <label class="option"><input type="radio" name="q49" value="b"><span class="option-marker"></span><span>As temperature decreases, solubility decreases, so the solution becomes supersaturated and excess solute crystallizes out</span></label>
+                    <label class="option"><input type="radio" name="q49" value="c"><span class="option-marker"></span><span>The water is freezing into ice crystals</span></label>
+                    <label class="option"><input type="radio" name="q49" value="d"><span class="option-marker"></span><span>Cooling has no effect on solutions</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="48" data-answer="a">
-                <span class="question-number">48</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">When a salt solution evaporates, what would you observe?</p>
+            <div class="question-card" data-question="50" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">50</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A pharmaceutical company needs to purify a medicine by removing impurities. They dissolve the medicine in a minimum amount of hot solvent, then allow it to cool slowly. Pure medicine crystals form while impurities remain dissolved. What separation technique is this?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q48" value="a"><span class="option-marker"></span><span>Solid salt crystals remain in the dish as the water evaporates</span></label>
-                    <label class="option"><input type="radio" name="q48" value="b"><span class="option-marker"></span><span>The salt disappears completely</span></label>
-                    <label class="option"><input type="radio" name="q48" value="c"><span class="option-marker"></span><span>The solution becomes more cloudy</span></label>
-                    <label class="option"><input type="radio" name="q48" value="d"><span class="option-marker"></span><span>Nothing happens</span></label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <div class="question-card" data-question="49" data-answer="c">
-                <span class="question-number">49</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a saturated solution?</p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q49" value="a"><span class="option-marker"></span><span>A solution that contains very little solute</span></label>
-                    <label class="option"><input type="radio" name="q49" value="b"><span class="option-marker"></span><span>A solution that has been filtered</span></label>
-                    <label class="option"><input type="radio" name="q49" value="c"><span class="option-marker"></span><span>A solution where no more solute can dissolve at that temperature</span></label>
-                    <label class="option"><input type="radio" name="q49" value="d"><span class="option-marker"></span><span>A solution that has completely evaporated</span></label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <div class="question-card" data-question="50" data-answer="true">
-                <span class="question-number">50</span><span class="question-type">True/False</span>
-                <p class="question-text">When making a salt solution, the salt is the solute and water is the solvent.</p>
-                <div class="options tf-options">
-                    <label class="option"><input type="radio" name="q50" value="true"><span class="option-marker"></span><span>True</span></label>
-                    <label class="option"><input type="radio" name="q50" value="false"><span class="option-marker"></span><span>False</span></label>
+                    <label class="option"><input type="radio" name="q50" value="a"><span class="option-marker"></span><span>Simple filtration</span></label>
+                    <label class="option"><input type="radio" name="q50" value="b"><span class="option-marker"></span><span>Simple evaporation</span></label>
+                    <label class="option"><input type="radio" name="q50" value="c"><span class="option-marker"></span><span>Crystallization - using temperature-dependent solubility to obtain pure crystals</span></label>
+                    <label class="option"><input type="radio" name="q50" value="d"><span class="option-marker"></span><span>Distillation</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
             <div class="submit-container" id="submitContainer">
-                <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 0.9rem;">Make sure you have answered all questions before submitting.</p>
-                <button type="button" class="submit-btn" onclick="submitQuiz()">📝 Submit Part 2</button>
+                <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 1rem;">Review your answers carefully before submitting.</p>
+                <button type="button" class="submit-btn" onclick="submitQuiz()">📝 Submit Advanced Test - Part 2</button>
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 style="font-family: 'DM Serif Display', serif; color: var(--primary);">Part 2 Results</h2>
+                <h2 style="font-family: 'Crimson Pro', serif; color: var(--primary); font-size: 1.8rem;">Part 2 Results</h2>
                 <div class="score-circle" id="scoreCircle"><div class="score-inner"><span class="score-value" id="scoreValue">0%</span><span class="score-label">Score</span></div></div>
                 <div id="gradeBadge"></div>
                 <div class="stats-grid">
@@ -406,7 +822,7 @@
                     <div class="stat-card"><div class="stat-value" id="incorrectCount">0</div><div class="stat-label">Incorrect</div></div>
                     <div class="stat-card"><div class="stat-value" id="totalMarks">0/50</div><div class="stat-label">Marks</div></div>
                 </div>
-                <button type="button" class="review-btn" onclick="reviewAnswers()">📖 Review Answers</button>
+                <button type="button" class="review-btn" onclick="reviewAnswers()">📖 Review Answers & Explanations</button>
             </div>
         </form>
     </div>
@@ -433,39 +849,39 @@
         document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', updateProgress));
 
         const answers = { 
-            q26:'b', q27:'c', q28:'a', q29:'true', q30:'d', 
-            q31:'b', q32:'false', q33:'a', q34:'c', q35:'b', 
-            q36:'d', q37:'true', q38:'true', q39:'b', q40:'c', 
-            q41:'b', q42:'a', q43:'true', q44:'false', q45:'c', 
-            q46:'d', q47:'b', q48:'a', q49:'c', q50:'true' 
+            q26:'c', q27:'d', q28:'b', q29:'false', q30:'c', 
+            q31:'c', q32:'true', q33:'b', q34:'d', q35:'c', 
+            q36:'b', q37:'false', q38:'c', q39:'d', q40:'b', 
+            q41:'true', q42:'c', q43:'c', q44:'d', q45:'b', 
+            q46:'false', q47:'c', q48:'d', q49:'b', q50:'c' 
         };
 
         const feedback = {
-            q26: 'Filtration separates an insoluble solid from a liquid.',
-            q27: 'The residue is the solid that remains on the filter paper.',
-            q28: 'The filtrate is the liquid that passes through the filter paper.',
-            q29: 'A funnel holds the filter paper during filtration.',
-            q30: 'A beaker or conical flask below the funnel collects the filtrate.',
-            q31: 'Sand cannot pass through filter paper, so it stays as the residue.',
-            q32: 'Filtration only separates insoluble solids. Salt is soluble, so it passes through with the water.',
-            q33: 'A mixture contains substances that are not chemically combined and can be separated.',
-            q34: 'A solution is transparent because the solute has completely dissolved.',
-            q35: 'In a suspension, particles settle to the bottom over time (e.g., muddy water).',
-            q36: 'A colloid is cloudy but particles stay suspended and don\'t settle (e.g., milk).',
-            q37: 'Opaque means you cannot see through it (light does not pass through).',
-            q38: 'Transparent means you can see through it clearly (light passes through).',
-            q39: 'Pure water contains only H₂O molecules. The others are mixtures.',
-            q40: 'An impure substance is a mixture containing more than one type of particle.',
-            q41: 'The solute is what dissolves (e.g., salt in salt water).',
-            q42: 'The solvent does the dissolving (e.g., water in salt water).',
-            q43: 'Soluble means able to dissolve.',
-            q44: 'Insoluble means unable to dissolve (will not dissolve).',
-            q45: 'Solubility is how much solute can dissolve in a given amount of solvent.',
-            q46: 'Evaporation separates a dissolved solid from its solution by heating.',
-            q47: 'An evaporating dish is heated with a Bunsen burner to evaporate the solvent.',
-            q48: 'As water evaporates, solid salt crystals form and remain in the dish.',
-            q49: 'A saturated solution cannot dissolve any more solute at that temperature.',
-            q50: 'In any solution, the dissolved substance is the solute; the liquid is the solvent.'
+            q26: 'Filtration should be used first to separate the insoluble sand. The salt will pass through with water as filtrate, then evaporation can be used on the filtrate to get the salt.',
+            q27: 'Some chalk particles are so fine that they can pass through the tiny pores in filter paper, making the filtrate slightly cloudy. This shows the limitations of filtration for very fine particles.',
+            q28: 'In scientific work, both products of separation may be valuable. The residue must be carefully scraped from the filter paper, and the filtrate must be collected cleanly, with both properly labeled for analysis.',
+            q29: 'Sugar dissolves in water, forming a solution. When you filter a sugar solution, the dissolved sugar molecules pass through the filter paper with the water (as filtrate). Only insoluble solids would remain as residue.',
+            q30: 'If the filter paper tears, it can no longer function as a barrier. Solid particles that should have stayed as residue can now fall through the tear and contaminate the filtrate, ruining the separation.',
+            q31: 'Use a magnet first to remove iron filings. Then add water to dissolve the salt. Filter to separate sand (residue) from salt solution (filtrate). Finally, evaporate the filtrate to obtain salt crystals.',
+            q32: 'When substances dissolve, they break down to molecular or ionic level - these particles are far too small to be trapped by filter paper pores. That\'s why dissolved substances pass through as part of the filtrate.',
+            q33: 'Filtration removes solid particles, sediment, and potential contaminants from water, making it clearer and safer. However, it doesn\'t remove dissolved substances, so other treatments are also needed.',
+            q34: 'Saltwater is clear and transparent - a solution. Muddy water has particles that settle - a suspension. Milk is cloudy but particles don\'t settle - a colloid.',
+            q35: 'Fresh orange juice with pulp is a suspension. The pulp particles are large enough to eventually settle due to gravity, which is characteristic of suspensions.',
+            q36: 'In colloids, particles are small enough to remain suspended indefinitely without settling (unlike suspensions where particles eventually settle), but large enough to scatter light (unlike solutions where particles are too small to scatter light).',
+            q37: 'Cloudy mixtures can be either suspensions (where particles settle) or colloids (where particles don\'t settle). Both appear cloudy, but they behave differently over time.',
+            q38: 'Visual inspection cannot distinguish between pure water and a clear solution. Evaporation is the key test - if any solid remains after evaporation, it was a solution, not pure water.',
+            q39: 'A mixture contains two or more different substances that are not chemically bonded together. Air contains several different gases (nitrogen, oxygen, CO₂, etc.) that remain as separate substances and could theoretically be separated.',
+            q40: 'Solutions remain uniformly mixed indefinitely, making them ideal for products requiring consistency and long shelf life. Suspensions separate over time and would need shaking or mixing before use.',
+            q41: 'Sea water contains dissolved salts, minerals, and other substances mixed with water molecules. This makes it impure - a mixture rather than a pure substance containing only H₂O.',
+            q42: 'The Tyndall effect (visible light beam path) occurs when light is scattered by particles that are larger than molecules but small enough to stay suspended - characteristic of colloids. Solutions don\'t show this effect because dissolved particles are too small.',
+            q43: 'This demonstrates that solubility is temperature-dependent. More sugar can dissolve in hot water than in cold water. The cold water became saturated with less sugar than the hot water could hold.',
+            q44: 'A saturated solution is one where the maximum amount of solute has dissolved at that temperature. No more solute can dissolve unless the temperature is increased or more solvent is added.',
+            q45: 'This is solar evaporation. The sun\'s heat causes water to evaporate from the shallow pools, leaving behind salt crystals. This is an industrial application of the evaporation separation technique.',
+            q46: 'Oil is insoluble (immiscible) in water. Oil spills spread because oil floats on water due to lower density, not because it dissolves. If oil were soluble, it would mix uniformly with the water.',
+            q47: 'This is a controlled experiment showing that temperature affects solubility. Hot water can hold more dissolved solute than cold water before becoming saturated. This principle is used in crystallization techniques.',
+            q48: 'Gentle heating provides controlled, gradual evaporation. Strong heating causes rapid boiling which can cause solution to spit out, loss of product, and potentially dangerous conditions. Slow evaporation is safer and more efficient.',
+            q49: 'As the saturated solution cools, the solubility decreases. The solution can no longer hold all the dissolved solute at the lower temperature, so the excess crystallizes out. This is the basis of purification by crystallization.',
+            q50: 'Crystallization exploits temperature-dependent solubility. At high temperature, both medicine and impurities dissolve. Upon cooling, pure medicine crystallizes out preferentially while impurities remain in solution, achieving purification.'
         };
 
         function submitQuiz() {
@@ -474,8 +890,12 @@
             for (let i = 26; i <= 50; i++) {
                 const card = document.querySelector(`[data-question="${i}"]`);
                 const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                if (sel && sel.value === answers[`q${i}`]) { correct++; card.classList.add('correct'); }
-                else { card.classList.add('incorrect'); }
+                if (sel && sel.value === answers[`q${i}`]) { 
+                    correct++; 
+                    card.classList.add('correct'); 
+                } else { 
+                    card.classList.add('incorrect'); 
+                }
             }
             const pct = Math.round((correct / totalQ) * 100), marks = correct * 2;
             document.getElementById('scoreValue').textContent = `${pct}%`;
@@ -484,10 +904,10 @@
             document.getElementById('totalMarks').textContent = `${marks}/50`;
             document.getElementById('scoreCircle').style.setProperty('--score-percent', `${pct}%`);
             let grade, gc;
-            if (pct >= 90) { grade = '🌟 Excellent!'; gc = 'grade-a'; }
-            else if (pct >= 75) { grade = '👏 Great Job!'; gc = 'grade-b'; }
+            if (pct >= 90) { grade = '🌟 Outstanding!'; gc = 'grade-a'; }
+            else if (pct >= 75) { grade = '👏 Excellent Work!'; gc = 'grade-b'; }
             else if (pct >= 60) { grade = '👍 Good Effort!'; gc = 'grade-c'; }
-            else { grade = '📚 Keep Studying!'; gc = 'grade-d'; }
+            else { grade = '📚 Keep Practicing!'; gc = 'grade-d'; }
             document.getElementById('gradeBadge').innerHTML = `<span class="grade-badge ${gc}">${grade}</span>`;
             document.getElementById('submitContainer').style.display = 'none';
             document.getElementById('resultsContainer').classList.add('show');
