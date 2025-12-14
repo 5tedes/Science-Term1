@@ -3,78 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year 7 Science Practice Test - Part 1</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <title>Year 7 Science Advanced Practice Test - Part 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a5f7a; --primary-light: #2d8ab5; --secondary: #57c5b6; --accent: #159895; --bg: #f8fafb; --card: #ffffff; --text: #1a2b34; --text-light: #5a6d7a; --correct: #22c55e; --incorrect: #ef4444; --warning: #f59e0b; --border: #e2e8f0; }
+        :root { 
+            --primary: #2c3e50; 
+            --primary-light: #34495e; 
+            --secondary: #e74c3c; 
+            --accent: #c0392b; 
+            --bg: #ecf0f1; 
+            --card: #ffffff; 
+            --text: #2c3e50; 
+            --text-light: #7f8c8d; 
+            --correct: #27ae60; 
+            --incorrect: #e74c3c; 
+            --warning: #f39c12; 
+            --border: #bdc3c7; 
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 1.5rem; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(26, 95, 122, 0.3); }
-        .header h1 { font-family: 'DM Serif Display', serif; font-size: 1.75rem; margin-bottom: 0.25rem; }
-        .header-info { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.75rem; font-size: 0.9rem; }
-        .timer-container { background: rgba(255,255,255,0.15); padding: 0.5rem 1.25rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
-        .timer { font-size: 1.25rem; font-weight: 700; }
-        .timer.warning { color: var(--warning); animation: pulse 1s ease-in-out infinite; }
+        body { 
+            font-family: 'Work Sans', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.7; 
+        }
+        .header { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; 
+            padding: 2rem; 
+            text-align: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 20px rgba(44, 62, 80, 0.3); 
+            border-bottom: 4px solid var(--secondary);
+        }
+        .header h1 { 
+            font-family: 'Crimson Pro', serif; 
+            font-size: 2rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+        }
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 0.5rem;
+        }
+        .difficulty-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .header-info { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2rem; 
+            flex-wrap: wrap; 
+            margin-top: 1rem; 
+            font-size: 0.95rem; 
+        }
+        .timer-container { 
+            background: rgba(255,255,255,0.15); 
+            padding: 0.6rem 1.5rem; 
+            border-radius: 50px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            margin-top: 1rem; 
+        }
+        .timer { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+        }
+        .timer.warning { 
+            color: var(--warning); 
+            animation: pulse 1s ease-in-out infinite; 
+        }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-        .container { max-width: 850px; margin: 0 auto; padding: 1.5rem; }
-        .progress-bar { background: var(--border); height: 6px; border-radius: 3px; margin-bottom: 1.5rem; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); transition: width 0.3s ease; }
-        .section-header { background: var(--card); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border-left: 4px solid var(--accent); }
-        .section-header h2 { font-family: 'DM Serif Display', serif; color: var(--primary); font-size: 1.2rem; }
-        .section-header p { color: var(--text-light); margin-top: 0.25rem; font-size: 0.85rem; }
-        .question-card { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; border: 2px solid transparent; transition: all 0.3s ease; }
-        .question-card.correct { border-color: var(--correct); background: linear-gradient(to right, rgba(34, 197, 94, 0.05), transparent); }
-        .question-card.incorrect { border-color: var(--incorrect); background: linear-gradient(to right, rgba(239, 68, 68, 0.05), transparent); }
-        .question-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--secondary); color: white; border-radius: 50%; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.75rem; }
-        .question-type { display: inline-block; background: var(--bg); color: var(--text-light); padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.7rem; font-weight: 500; margin-left: 0.5rem; text-transform: uppercase; }
-        .question-text { font-size: 1rem; font-weight: 500; margin-bottom: 1rem; }
-        .options { display: flex; flex-direction: column; gap: 0.6rem; }
-        .option { display: flex; align-items: center; padding: 0.85rem 1rem; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
-        .option:hover { border-color: var(--primary-light); background: white; }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+        }
+        .progress-bar { 
+            background: var(--border); 
+            height: 8px; 
+            border-radius: 4px; 
+            margin-bottom: 2rem; 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--secondary), var(--accent)); 
+            transition: width 0.3s ease; 
+        }
+        .section-header { 
+            background: var(--card); 
+            border-radius: 12px; 
+            padding: 1.5rem 2rem; 
+            margin-bottom: 1.5rem; 
+            border-left: 5px solid var(--secondary); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section-header h2 { 
+            font-family: 'Crimson Pro', serif; 
+            color: var(--primary); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+        }
+        .section-header p { 
+            color: var(--text-light); 
+            margin-top: 0.5rem; 
+            font-size: 0.9rem; 
+        }
+        .question-card { 
+            background: var(--card); 
+            border-radius: 12px; 
+            padding: 2rem; 
+            margin-bottom: 1.5rem; 
+            border: 2px solid transparent; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .question-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .question-card.correct { 
+            border-color: var(--correct); 
+            background: linear-gradient(to right, rgba(39, 174, 96, 0.05), transparent); 
+        }
+        .question-card.incorrect { 
+            border-color: var(--incorrect); 
+            background: linear-gradient(to right, rgba(231, 76, 60, 0.05), transparent); 
+        }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .question-number { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 36px; 
+            height: 36px; 
+            background: var(--secondary); 
+            color: white; 
+            border-radius: 50%; 
+            font-weight: 700; 
+            font-size: 1rem; 
+        }
+        .question-type { 
+            display: inline-block; 
+            background: var(--bg); 
+            color: var(--text-light); 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 15px; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+        }
+        .question-type.challenging {
+            background: var(--warning);
+            color: white;
+        }
+        .question-text { 
+            font-size: 1.05rem; 
+            font-weight: 500; 
+            margin-bottom: 1.25rem; 
+            line-height: 1.7;
+        }
+        .options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.8rem; 
+        }
+        .option { 
+            display: flex; 
+            align-items: flex-start; 
+            padding: 1rem 1.25rem; 
+            background: var(--bg); 
+            border: 2px solid var(--border); 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+        }
+        .option:hover { 
+            border-color: var(--primary); 
+            background: white; 
+            transform: translateX(4px);
+        }
         .option input { display: none; }
-        .option-marker { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 50%; margin-right: 0.75rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
-        .option input:checked + .option-marker { background: var(--primary); border-color: var(--primary); }
-        .option input:checked + .option-marker::after { content: ''; width: 6px; height: 6px; background: white; border-radius: 50%; }
-        .option.correct-answer { border-color: var(--correct); background: rgba(34, 197, 94, 0.1); }
-        .option.correct-answer .option-marker { background: var(--correct); border-color: var(--correct); }
-        .option.wrong-answer { border-color: var(--incorrect); background: rgba(239, 68, 68, 0.1); }
-        .tf-options { display: flex; gap: 0.75rem; }
-        .tf-options .option { flex: 1; justify-content: center; font-weight: 600; }
-        .feedback { margin-top: 0.75rem; padding: 0.75rem; border-radius: 8px; display: none; font-size: 0.9rem; }
+        .option-marker { 
+            width: 22px; 
+            height: 22px; 
+            border: 2px solid var(--border); 
+            border-radius: 50%; 
+            margin-right: 1rem; 
+            margin-top: 2px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: all 0.2s ease; 
+            flex-shrink: 0; 
+        }
+        .option input:checked + .option-marker { 
+            background: var(--primary); 
+            border-color: var(--primary); 
+        }
+        .option input:checked + .option-marker::after { 
+            content: ''; 
+            width: 8px; 
+            height: 8px; 
+            background: white; 
+            border-radius: 50%; 
+        }
+        .option.correct-answer { 
+            border-color: var(--correct); 
+            background: rgba(39, 174, 96, 0.1); 
+        }
+        .option.correct-answer .option-marker { 
+            background: var(--correct); 
+            border-color: var(--correct); 
+        }
+        .option.wrong-answer { 
+            border-color: var(--incorrect); 
+            background: rgba(231, 76, 60, 0.1); 
+        }
+        .tf-options { 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem; 
+        }
+        .tf-options .option { 
+            justify-content: center; 
+            font-weight: 600; 
+        }
+        .feedback { 
+            margin-top: 1rem; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            display: none; 
+            font-size: 0.95rem; 
+            line-height: 1.6;
+        }
         .feedback.show { display: block; }
-        .feedback.correct { background: rgba(34, 197, 94, 0.1); color: #166534; }
-        .feedback.incorrect { background: rgba(239, 68, 68, 0.1); color: #991b1b; }
-        .submit-container { text-align: center; padding: 2rem; background: var(--card); border-radius: 12px; margin-top: 1.5rem; }
-        .submit-btn { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; border: none; padding: 0.9rem 2.5rem; font-size: 1rem; font-weight: 600; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(26, 95, 122, 0.4); }
-        .results-container { display: none; text-align: center; padding: 2rem; background: var(--card); border-radius: 12px; margin-top: 1.5rem; }
+        .feedback.correct { 
+            background: rgba(39, 174, 96, 0.1); 
+            color: #1e7e34; 
+            border-left: 4px solid var(--correct);
+        }
+        .feedback.incorrect { 
+            background: rgba(231, 76, 60, 0.1); 
+            color: #c0392b; 
+            border-left: 4px solid var(--incorrect);
+        }
+        .submit-container { 
+            text-align: center; 
+            padding: 2.5rem; 
+            background: var(--card); 
+            border-radius: 12px; 
+            margin-top: 2rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .submit-btn { 
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%); 
+            color: white; 
+            border: none; 
+            padding: 1rem 3rem; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .submit-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4); 
+        }
+        .results-container { 
+            display: none; 
+            text-align: center; 
+            padding: 2.5rem; 
+            background: var(--card); 
+            border-radius: 12px; 
+            margin-top: 2rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
         .results-container.show { display: block; }
-        .score-circle { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--accent) var(--score-percent), var(--border) var(--score-percent)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
-        .score-inner { width: 120px; height: 120px; border-radius: 50%; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .score-value { font-size: 2rem; font-weight: 700; color: var(--primary); }
-        .score-label { color: var(--text-light); font-size: 0.85rem; }
-        .grade-badge { display: inline-block; padding: 0.4rem 1.25rem; border-radius: 20px; font-weight: 600; margin-top: 0.75rem; }
-        .grade-a { background: rgba(34, 197, 94, 0.15); color: #166534; }
-        .grade-b { background: rgba(59, 130, 246, 0.15); color: #1e40af; }
-        .grade-c { background: rgba(245, 158, 11, 0.15); color: #92400e; }
-        .grade-d { background: rgba(239, 68, 68, 0.15); color: #991b1b; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 1.5rem; }
-        .stat-card { background: var(--bg); padding: 1rem; border-radius: 10px; }
-        .stat-value { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 0.8rem; color: var(--text-light); }
-        .review-btn { background: var(--bg); color: var(--primary); border: 2px solid var(--primary); padding: 0.6rem 1.5rem; font-size: 0.95rem; font-weight: 600; border-radius: 50px; cursor: pointer; margin-top: 1.5rem; transition: all 0.2s ease; }
-        .review-btn:hover { background: var(--primary); color: white; }
-        .instructions { background: linear-gradient(135deg, rgba(87, 197, 182, 0.1) 0%, rgba(21, 152, 149, 0.1) 100%); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(21, 152, 149, 0.2); }
-        .instructions h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem; }
-        .instructions ul { color: var(--text-light); margin-left: 1.25rem; font-size: 0.9rem; }
-        .instructions li { margin-bottom: 0.25rem; }
-        @media (max-width: 640px) { .header h1 { font-size: 1.25rem; } .container { padding: 1rem; } .stats-grid { grid-template-columns: 1fr; } .tf-options { flex-direction: column; } }
+        .score-circle { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            background: conic-gradient(var(--secondary) var(--score-percent), var(--border) var(--score-percent)); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 2rem; 
+        }
+        .score-inner { 
+            width: 145px; 
+            height: 145px; 
+            border-radius: 50%; 
+            background: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .score-value { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            font-family: 'Crimson Pro', serif;
+        }
+        .score-label { 
+            color: var(--text-light); 
+            font-size: 0.9rem; 
+        }
+        .grade-badge { 
+            display: inline-block; 
+            padding: 0.5rem 1.5rem; 
+            border-radius: 25px; 
+            font-weight: 600; 
+            margin-top: 1rem; 
+            font-size: 1.1rem;
+        }
+        .grade-a { background: rgba(39, 174, 96, 0.15); color: #1e7e34; }
+        .grade-b { background: rgba(52, 152, 219, 0.15); color: #1e40af; }
+        .grade-c { background: rgba(243, 156, 18, 0.15); color: #92400e; }
+        .grade-d { background: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 1rem; 
+            margin-top: 2rem; 
+        }
+        .stat-card { 
+            background: var(--bg); 
+            padding: 1.25rem; 
+            border-radius: 10px; 
+        }
+        .stat-value { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+        }
+        .stat-label { 
+            font-size: 0.85rem; 
+            color: var(--text-light); 
+            margin-top: 0.25rem;
+        }
+        .review-btn { 
+            background: var(--bg); 
+            color: var(--primary); 
+            border: 2px solid var(--primary); 
+            padding: 0.8rem 2rem; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin-top: 2rem; 
+            transition: all 0.2s ease; 
+        }
+        .review-btn:hover { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .instructions { 
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(192, 57, 43, 0.1) 100%); 
+            border-radius: 12px; 
+            padding: 1.5rem 2rem; 
+            margin-bottom: 2rem; 
+            border: 2px solid rgba(231, 76, 60, 0.2); 
+        }
+        .instructions h3 { 
+            color: var(--secondary); 
+            margin-bottom: 0.75rem; 
+            font-size: 1.1rem; 
+            font-weight: 700;
+        }
+        .instructions ul { 
+            color: var(--text-light); 
+            margin-left: 1.5rem; 
+            font-size: 0.95rem; 
+        }
+        .instructions li { 
+            margin-bottom: 0.4rem; 
+        }
+        @media (max-width: 640px) { 
+            .header h1 { font-size: 1.5rem; } 
+            .container { padding: 1rem; } 
+            .stats-grid { grid-template-columns: 1fr; } 
+            .tf-options { grid-template-columns: 1fr; } 
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>🔬 Year 7 Science Practice Test - Part 1</h1>
-        <p>Questions 1-25 | Cells, Organs & Photosynthesis</p>
+        <h1>🧬 Year 7 Science Advanced Practice Test - Part 1</h1>
+        <p class="subtitle">Questions 1-25 | Cells, Organs & Photosynthesis</p>
+        <span class="difficulty-badge">⚡ ADVANCED LEVEL</span>
         <div class="header-info">
             <span>📚 Chapter 7A</span>
             <span>❓ 25 Questions</span>
@@ -90,45 +425,56 @@
         <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
 
         <div class="instructions">
-            <h3>📋 Instructions</h3>
+            <h3>📋 Instructions - Read Carefully!</h3>
             <ul>
+                <li>This is an <strong>advanced level</strong> practice test with more challenging questions</li>
                 <li>25 questions worth 2 marks each (50 marks total)</li>
                 <li>Time allowed: 45 minutes</li>
-                <li>Click an option to select your answer</li>
+                <li>Questions require deeper understanding and application of concepts</li>
+                <li>Read each question carefully - some have multiple parts or require analysis</li>
                 <li>Click "Submit Test" when finished</li>
             </ul>
         </div>
 
         <form id="quizForm">
-            <div class="section-header"><h2>Section A: Life Processes</h2><p>Questions 1-10</p></div>
+            <div class="section-header"><h2>Section A: Life Processes & Classification</h2><p>Questions 1-10</p></div>
 
             <div class="question-card" data-question="1" data-answer="c">
-                <span class="question-number">1</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What does MRS GREN stand for?</p>
+                <div class="question-header">
+                    <span class="question-number">1</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A student observes a seed germinating and growing into a seedling. Which THREE life processes are most clearly demonstrated during this observation?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q1" value="a"><span class="option-marker"></span><span>Movement, Respiration, Sensing, Growth, Reproduction, Energy, Nutrition</span></label>
-                    <label class="option"><input type="radio" name="q1" value="b"><span class="option-marker"></span><span>Movement, Reproduction, Sensitivity, Growing, Respiration, Excretion, Nutrition</span></label>
-                    <label class="option"><input type="radio" name="q1" value="c"><span class="option-marker"></span><span>Movement, Respiration, Sensitivity, Growth, Reproduction, Excretion, Nutrition</span></label>
-                    <label class="option"><input type="radio" name="q1" value="d"><span class="option-marker"></span><span>Motion, Respiration, Sensitivity, Growth, Reproduction, Excretion, Nutrition</span></label>
+                    <label class="option"><input type="radio" name="q1" value="a"><span class="option-marker"></span><span>Movement, Sensitivity, Reproduction</span></label>
+                    <label class="option"><input type="radio" name="q1" value="b"><span class="option-marker"></span><span>Excretion, Reproduction, Movement</span></label>
+                    <label class="option"><input type="radio" name="q1" value="c"><span class="option-marker"></span><span>Growth, Respiration, Nutrition</span></label>
+                    <label class="option"><input type="radio" name="q1" value="d"><span class="option-marker"></span><span>Sensitivity, Excretion, Nutrition</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="2" data-answer="b">
-                <span class="question-number">2</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a symptom?</p>
+            <div class="question-card" data-question="2" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">2</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A doctor notices that three different patients all have a fever. Why is the fever considered a symptom rather than evidence?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q2" value="a"><span class="option-marker"></span><span>A type of medicine used to treat illness</span></label>
-                    <label class="option"><input type="radio" name="q2" value="b"><span class="option-marker"></span><span>A sign that something is wrong with the body</span></label>
-                    <label class="option"><input type="radio" name="q2" value="c"><span class="option-marker"></span><span>A type of cell found in the human body</span></label>
-                    <label class="option"><input type="radio" name="q2" value="d"><span class="option-marker"></span><span>Information that proves something</span></label>
+                    <label class="option"><input type="radio" name="q2" value="a"><span class="option-marker"></span><span>Because fever always indicates the same disease</span></label>
+                    <label class="option"><input type="radio" name="q2" value="b"><span class="option-marker"></span><span>Because fever can be measured with a thermometer</span></label>
+                    <label class="option"><input type="radio" name="q2" value="c"><span class="option-marker"></span><span>Because fever is not observable</span></label>
+                    <label class="option"><input type="radio" name="q2" value="d"><span class="option-marker"></span><span>Because fever indicates something is wrong but doesn't prove what the specific illness is</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="3" data-answer="true">
-                <span class="question-number">3</span><span class="question-type">True/False</span>
-                <p class="question-text">Respiration is the process of releasing energy from food.</p>
+            <div class="question-card" data-question="3" data-answer="false">
+                <div class="question-header">
+                    <span class="question-number">3</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">Respiration only occurs when an organism is actively moving or exercising.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q3" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q3" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -136,55 +482,72 @@
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="4" data-answer="c">
-                <span class="question-number">4</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which life process involves getting rid of waste products from the body?</p>
+            <div class="question-card" data-question="4" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">4</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A student places a potted plant in a dark cupboard for a week. The plant's leaves turn yellow and it starts to wilt. Which life process has been most directly affected by the lack of light?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q4" value="a"><span class="option-marker"></span><span>Nutrition</span></label>
-                    <label class="option"><input type="radio" name="q4" value="b"><span class="option-marker"></span><span>Respiration</span></label>
-                    <label class="option"><input type="radio" name="q4" value="c"><span class="option-marker"></span><span>Excretion</span></label>
-                    <label class="option"><input type="radio" name="q4" value="d"><span class="option-marker"></span><span>Sensitivity</span></label>
+                    <label class="option"><input type="radio" name="q4" value="a"><span class="option-marker"></span><span>Excretion - the plant cannot remove waste products</span></label>
+                    <label class="option"><input type="radio" name="q4" value="b"><span class="option-marker"></span><span>Nutrition - the plant cannot make food through photosynthesis</span></label>
+                    <label class="option"><input type="radio" name="q4" value="c"><span class="option-marker"></span><span>Reproduction - the plant cannot produce flowers</span></label>
+                    <label class="option"><input type="radio" name="q4" value="d"><span class="option-marker"></span><span>Movement - the plant cannot move towards light</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="5" data-answer="false">
-                <span class="question-number">5</span><span class="question-type">True/False</span>
-                <p class="question-text">A car is considered a living thing because it can move.</p>
-                <div class="options tf-options">
-                    <label class="option"><input type="radio" name="q5" value="true"><span class="option-marker"></span><span>True</span></label>
-                    <label class="option"><input type="radio" name="q5" value="false"><span class="option-marker"></span><span>False</span></label>
+            <div class="question-card" data-question="5" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">5</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A robot is programmed to detect obstacles and move around them, needs battery charging (similar to eating), and can produce other robots in a factory. Why is it still NOT considered a living organism?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q5" value="a"><span class="option-marker"></span><span>Because it is made of metal instead of cells</span></label>
+                    <label class="option"><input type="radio" name="q5" value="b"><span class="option-marker"></span><span>Because it cannot move on its own</span></label>
+                    <label class="option"><input type="radio" name="q5" value="c"><span class="option-marker"></span><span>Because while it mimics some life processes, it does not perform true respiration, growth, or excretion at the cellular level</span></label>
+                    <label class="option"><input type="radio" name="q5" value="d"><span class="option-marker"></span><span>Because it was created by humans</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
             <div class="question-card" data-question="6" data-answer="d">
-                <span class="question-number">6</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which of the following is an example of sensitivity?</p>
+                <div class="question-header">
+                    <span class="question-number">6</span>
+                    <span class="question-type">Multiple Choice</span>
+                </div>
+                <p class="question-text">Which example demonstrates BOTH sensitivity AND movement working together?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q6" value="a"><span class="option-marker"></span><span>A plant growing taller</span></label>
-                    <label class="option"><input type="radio" name="q6" value="b"><span class="option-marker"></span><span>A dog eating food</span></label>
-                    <label class="option"><input type="radio" name="q6" value="c"><span class="option-marker"></span><span>A bird laying eggs</span></label>
-                    <label class="option"><input type="radio" name="q6" value="d"><span class="option-marker"></span><span>A plant turning towards light</span></label>
+                    <label class="option"><input type="radio" name="q6" value="a"><span class="option-marker"></span><span>A tree growing taller over several years</span></label>
+                    <label class="option"><input type="radio" name="q6" value="b"><span class="option-marker"></span><span>A bird building a nest</span></label>
+                    <label class="option"><input type="radio" name="q6" value="c"><span class="option-marker"></span><span>A plant absorbing water through its roots</span></label>
+                    <label class="option"><input type="radio" name="q6" value="d"><span class="option-marker"></span><span>A cat's pupil contracting when exposed to bright light</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="7" data-answer="b">
-                <span class="question-number">7</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What does STEM stand for?</p>
+            <div class="question-card" data-question="7" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">7</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A medical research team is developing a new treatment for a disease. They need to collect data and test their ideas. Which STEM subjects would be MOST important for this project?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q7" value="a"><span class="option-marker"></span><span>Science, Testing, Engineering, Medicine</span></label>
-                    <label class="option"><input type="radio" name="q7" value="b"><span class="option-marker"></span><span>Science, Technology, Engineering, Mathematics</span></label>
-                    <label class="option"><input type="radio" name="q7" value="c"><span class="option-marker"></span><span>Science, Technology, Environment, Mathematics</span></label>
-                    <label class="option"><input type="radio" name="q7" value="d"><span class="option-marker"></span><span>Study, Technology, Engineering, Medicine</span></label>
+                    <label class="option"><input type="radio" name="q7" value="a"><span class="option-marker"></span><span>Engineering and Mathematics only</span></label>
+                    <label class="option"><input type="radio" name="q7" value="b"><span class="option-marker"></span><span>Technology and Engineering only</span></label>
+                    <label class="option"><input type="radio" name="q7" value="c"><span class="option-marker"></span><span>Science, Technology, and Mathematics - for research, data analysis, and developing treatment methods</span></label>
+                    <label class="option"><input type="radio" name="q7" value="d"><span class="option-marker"></span><span>Mathematics only - for calculating dosages</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
             <div class="question-card" data-question="8" data-answer="true">
-                <span class="question-number">8</span><span class="question-type">True/False</span>
-                <p class="question-text">All living organisms must carry out ALL seven life processes.</p>
+                <div class="question-header">
+                    <span class="question-number">8</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">Bacteria are considered living organisms because they perform all seven life processes, even though they consist of only a single cell.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q8" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q8" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -192,71 +555,89 @@
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="9" data-answer="c">
-                <span class="question-number">9</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which life process is described as "making new organisms of the same kind"?</p>
+            <div class="question-card" data-question="9" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">9</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">Why do organisms need to perform reproduction even though it is not necessary for their own survival?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q9" value="a"><span class="option-marker"></span><span>Growth</span></label>
-                    <label class="option"><input type="radio" name="q9" value="b"><span class="option-marker"></span><span>Movement</span></label>
-                    <label class="option"><input type="radio" name="q9" value="c"><span class="option-marker"></span><span>Reproduction</span></label>
-                    <label class="option"><input type="radio" name="q9" value="d"><span class="option-marker"></span><span>Nutrition</span></label>
+                    <label class="option"><input type="radio" name="q9" value="a"><span class="option-marker"></span><span>Because reproduction helps the organism grow larger</span></label>
+                    <label class="option"><input type="radio" name="q9" value="b"><span class="option-marker"></span><span>Because reproduction ensures the species continues to exist after individuals die</span></label>
+                    <label class="option"><input type="radio" name="q9" value="c"><span class="option-marker"></span><span>Because reproduction is the same as growth</span></label>
+                    <label class="option"><input type="radio" name="q9" value="d"><span class="option-marker"></span><span>Because organisms cannot excrete waste without reproducing</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="10" data-answer="a">
-                <span class="question-number">10</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is evidence?</p>
+            <div class="question-card" data-question="10" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">10</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A scientist observes that when they give patients with headaches a certain medicine, 90% of patients report their headache disappearing within 30 minutes. What would strengthen the evidence that the medicine actually works?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q10" value="a"><span class="option-marker"></span><span>Information that proves or disproves something</span></label>
-                    <label class="option"><input type="radio" name="q10" value="b"><span class="option-marker"></span><span>A guess about what might happen</span></label>
-                    <label class="option"><input type="radio" name="q10" value="c"><span class="option-marker"></span><span>A type of medical treatment</span></label>
-                    <label class="option"><input type="radio" name="q10" value="d"><span class="option-marker"></span><span>A symptom of an illness</span></label>
+                    <label class="option"><input type="radio" name="q10" value="a"><span class="option-marker"></span><span>Testing it on more patients with headaches</span></label>
+                    <label class="option"><input type="radio" name="q10" value="b"><span class="option-marker"></span><span>Asking patients to describe their headache in detail</span></label>
+                    <label class="option"><input type="radio" name="q10" value="c"><span class="option-marker"></span><span>Comparing it to a control group that receives no medicine, to see if headaches disappear naturally</span></label>
+                    <label class="option"><input type="radio" name="q10" value="d"><span class="option-marker"></span><span>Having patients take the medicine twice a day</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="section-header"><h2>Section B: Organs & Organisation</h2><p>Questions 11-18</p></div>
+            <div class="section-header"><h2>Section B: Cells, Tissues & Organisation</h2><p>Questions 11-18</p></div>
 
             <div class="question-card" data-question="11" data-answer="b">
-                <span class="question-number">11</span><span class="question-type">Extended Choice</span>
-                <p class="question-text">What is the correct order of organisation from smallest to largest?</p>
+                <div class="question-header">
+                    <span class="question-number">11</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">If a tissue is damaged and several cells die, but the organ containing that tissue continues to function normally, what does this tell you about the relationship between cells, tissues, and organs?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q11" value="a"><span class="option-marker"></span><span>Tissues → Cells → Organs → Organ Systems → Organism</span></label>
-                    <label class="option"><input type="radio" name="q11" value="b"><span class="option-marker"></span><span>Cells → Tissues → Organs → Organ Systems → Organism</span></label>
-                    <label class="option"><input type="radio" name="q11" value="c"><span class="option-marker"></span><span>Cells → Organs → Tissues → Organ Systems → Organism</span></label>
-                    <label class="option"><input type="radio" name="q11" value="d"><span class="option-marker"></span><span>Organism → Organ Systems → Organs → Tissues → Cells</span></label>
+                    <label class="option"><input type="radio" name="q11" value="a"><span class="option-marker"></span><span>Organs can function without any cells</span></label>
+                    <label class="option"><input type="radio" name="q11" value="b"><span class="option-marker"></span><span>Tissues contain many cells working together, so losing a few cells doesn't stop the whole tissue or organ from functioning</span></label>
+                    <label class="option"><input type="radio" name="q11" value="c"><span class="option-marker"></span><span>Cells and tissues are not actually part of organs</span></label>
+                    <label class="option"><input type="radio" name="q11" value="d"><span class="option-marker"></span><span>Dead cells continue to perform their functions</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="12" data-answer="c">
-                <span class="question-number">12</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is the main function of the heart?</p>
+            <div class="question-card" data-question="12" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">12</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A person's heart stops pumping effectively. Which other organ systems would be IMMEDIATELY affected and why?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q12" value="a"><span class="option-marker"></span><span>To digest food</span></label>
-                    <label class="option"><input type="radio" name="q12" value="b"><span class="option-marker"></span><span>To filter blood and produce urine</span></label>
-                    <label class="option"><input type="radio" name="q12" value="c"><span class="option-marker"></span><span>To pump blood around the body</span></label>
-                    <label class="option"><input type="radio" name="q12" value="d"><span class="option-marker"></span><span>To take in oxygen</span></label>
+                    <label class="option"><input type="radio" name="q12" value="a"><span class="option-marker"></span><span>Only the circulatory system would be affected</span></label>
+                    <label class="option"><input type="radio" name="q12" value="b"><span class="option-marker"></span><span>The digestive system, because food cannot be digested without blood flow</span></label>
+                    <label class="option"><input type="radio" name="q12" value="c"><span class="option-marker"></span><span>The reproductive system, because reproduction requires blood</span></label>
+                    <label class="option"><input type="radio" name="q12" value="d"><span class="option-marker"></span><span>All organ systems would be affected because they all need oxygen and nutrients delivered by the blood</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="13" data-answer="d">
-                <span class="question-number">13</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which organ is responsible for filtering blood and producing urine?</p>
+            <div class="question-card" data-question="13" data-answer="c">
+                <div class="question-header">
+                    <span class="question-number">13</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A patient's kidneys are not functioning properly. The doctor notes that waste products are building up in the patient's blood. This demonstrates that the kidneys are responsible for:</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q13" value="a"><span class="option-marker"></span><span>Liver</span></label>
-                    <label class="option"><input type="radio" name="q13" value="b"><span class="option-marker"></span><span>Lungs</span></label>
-                    <label class="option"><input type="radio" name="q13" value="c"><span class="option-marker"></span><span>Stomach</span></label>
-                    <label class="option"><input type="radio" name="q13" value="d"><span class="option-marker"></span><span>Kidneys</span></label>
+                    <label class="option"><input type="radio" name="q13" value="a"><span class="option-marker"></span><span>Respiration - releasing energy from food</span></label>
+                    <label class="option"><input type="radio" name="q13" value="b"><span class="option-marker"></span><span>Nutrition - taking in nutrients</span></label>
+                    <label class="option"><input type="radio" name="q13" value="c"><span class="option-marker"></span><span>Excretion - removing waste products from the body</span></label>
+                    <label class="option"><input type="radio" name="q13" value="d"><span class="option-marker"></span><span>Growth - making the body larger</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="14" data-answer="true">
-                <span class="question-number">14</span><span class="question-type">True/False</span>
-                <p class="question-text">The skin is the largest organ in the human body.</p>
+            <div class="question-card" data-question="14" data-answer="false">
+                <div class="question-header">
+                    <span class="question-number">14</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">The skin is considered an organ, but it cannot be part of any organ system because it covers the outside of the body.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q14" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q14" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -264,95 +645,119 @@
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="15" data-answer="b">
-                <span class="question-number">15</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which plant organ is responsible for absorbing water and minerals from the soil?</p>
+            <div class="question-card" data-question="15" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">15</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A plant is growing in soil that lacks essential minerals. Which organ would be MOST directly responsible for this problem, and what might you observe?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q15" value="a"><span class="option-marker"></span><span>Leaf</span></label>
-                    <label class="option"><input type="radio" name="q15" value="b"><span class="option-marker"></span><span>Root</span></label>
-                    <label class="option"><input type="radio" name="q15" value="c"><span class="option-marker"></span><span>Stem</span></label>
-                    <label class="option"><input type="radio" name="q15" value="d"><span class="option-marker"></span><span>Flower</span></label>
+                    <label class="option"><input type="radio" name="q15" value="a"><span class="option-marker"></span><span>Leaf - the leaves would not be able to photosynthesize</span></label>
+                    <label class="option"><input type="radio" name="q15" value="b"><span class="option-marker"></span><span>Stem - the stem could not transport water</span></label>
+                    <label class="option"><input type="radio" name="q15" value="c"><span class="option-marker"></span><span>Flower - the plant could not reproduce</span></label>
+                    <label class="option"><input type="radio" name="q15" value="d"><span class="option-marker"></span><span>Root - the roots cannot absorb minerals, which might cause poor growth and yellowing leaves</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="16" data-answer="a">
-                <span class="question-number">16</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is the function of the stomach?</p>
+            <div class="question-card" data-question="16" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">16</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A person has a condition where their stomach produces too little acid. How would this MOST likely affect digestion?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q16" value="a"><span class="option-marker"></span><span>Breaks down food using acid and enzymes</span></label>
-                    <label class="option"><input type="radio" name="q16" value="b"><span class="option-marker"></span><span>Pumps blood around the body</span></label>
-                    <label class="option"><input type="radio" name="q16" value="c"><span class="option-marker"></span><span>Controls thinking and memory</span></label>
-                    <label class="option"><input type="radio" name="q16" value="d"><span class="option-marker"></span><span>Absorbs oxygen from the air</span></label>
+                    <label class="option"><input type="radio" name="q16" value="a"><span class="option-marker"></span><span>Food would digest faster than normal</span></label>
+                    <label class="option"><input type="radio" name="q16" value="b"><span class="option-marker"></span><span>Food would not break down as effectively, making nutrients harder to absorb</span></label>
+                    <label class="option"><input type="radio" name="q16" value="c"><span class="option-marker"></span><span>The person would not be able to swallow food</span></label>
+                    <label class="option"><input type="radio" name="q16" value="d"><span class="option-marker"></span><span>The heart would pump blood more slowly</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
             <div class="question-card" data-question="17" data-answer="c">
-                <span class="question-number">17</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is a tissue?</p>
+                <div class="question-header">
+                    <span class="question-number">17</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">Muscle tissue can contract and relax. Nerve tissue can transmit electrical signals. How do these different tissues work together in the human body?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q17" value="a"><span class="option-marker"></span><span>A single cell that performs a function</span></label>
-                    <label class="option"><input type="radio" name="q17" value="b"><span class="option-marker"></span><span>A group of different organs working together</span></label>
-                    <label class="option"><input type="radio" name="q17" value="c"><span class="option-marker"></span><span>A group of similar cells working together to perform a specific function</span></label>
-                    <label class="option"><input type="radio" name="q17" value="d"><span class="option-marker"></span><span>The smallest unit of life</span></label>
+                    <label class="option"><input type="radio" name="q17" value="a"><span class="option-marker"></span><span>They don't work together - each tissue works independently</span></label>
+                    <label class="option"><input type="radio" name="q17" value="b"><span class="option-marker"></span><span>Muscle tissue sends signals to nerve tissue</span></label>
+                    <label class="option"><input type="radio" name="q17" value="c"><span class="option-marker"></span><span>Nerve tissue sends signals to muscle tissue to tell it when to contract, allowing coordinated movement</span></label>
+                    <label class="option"><input type="radio" name="q17" value="d"><span class="option-marker"></span><span>Both tissues perform the same function</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="18" data-answer="b">
-                <span class="question-number">18</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What is the function of muscle tissue?</p>
+            <div class="question-card" data-question="18" data-answer="a">
+                <div class="question-header">
+                    <span class="question-number">18</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">An athlete trains regularly, causing their muscle tissue to increase in size and strength. Which life process does this represent, and at what level of organization does it occur?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q18" value="a"><span class="option-marker"></span><span>To carry messages around the body</span></label>
-                    <label class="option"><input type="radio" name="q18" value="b"><span class="option-marker"></span><span>To contract (shorten) and produce movement</span></label>
-                    <label class="option"><input type="radio" name="q18" value="c"><span class="option-marker"></span><span>To protect the body from disease</span></label>
-                    <label class="option"><input type="radio" name="q18" value="d"><span class="option-marker"></span><span>To absorb nutrients</span></label>
+                    <label class="option"><input type="radio" name="q18" value="a"><span class="option-marker"></span><span>Growth - occurring at the tissue and organ level as muscle cells increase in number and size</span></label>
+                    <label class="option"><input type="radio" name="q18" value="b"><span class="option-marker"></span><span>Reproduction - creating new muscle organs</span></label>
+                    <label class="option"><input type="radio" name="q18" value="c"><span class="option-marker"></span><span>Nutrition - the muscles are absorbing food</span></label>
+                    <label class="option"><input type="radio" name="q18" value="d"><span class="option-marker"></span><span>Excretion - the muscles are removing waste</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="section-header"><h2>Section C: Photosynthesis</h2><p>Questions 19-25</p></div>
+            <div class="section-header"><h2>Section C: Photosynthesis & Plant Function</h2><p>Questions 19-25</p></div>
 
             <div class="question-card" data-question="19" data-answer="c">
-                <span class="question-number">19</span><span class="question-type">Extended Choice</span>
-                <p class="question-text">Which of the following correctly describes photosynthesis?</p>
+                <div class="question-header">
+                    <span class="question-number">19</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A plant is placed in an airtight container with a burning candle. After a few hours, the candle goes out. If the plant is left in the sealed container in sunlight, what would happen and why?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q19" value="a"><span class="option-marker"></span><span>The process by which plants release energy from food</span></label>
-                    <label class="option"><input type="radio" name="q19" value="b"><span class="option-marker"></span><span>The process by which plants absorb water through their roots</span></label>
-                    <label class="option"><input type="radio" name="q19" value="c"><span class="option-marker"></span><span>The process by which plants make their own food using light energy</span></label>
-                    <label class="option"><input type="radio" name="q19" value="d"><span class="option-marker"></span><span>The process by which plants get rid of waste products</span></label>
+                    <label class="option"><input type="radio" name="q19" value="a"><span class="option-marker"></span><span>The plant would die immediately because it needs fresh air from outside</span></label>
+                    <label class="option"><input type="radio" name="q19" value="b"><span class="option-marker"></span><span>Nothing would happen - plants don't affect air composition</span></label>
+                    <label class="option"><input type="radio" name="q19" value="c"><span class="option-marker"></span><span>The plant would produce oxygen through photosynthesis, using the carbon dioxide from the candle</span></label>
+                    <label class="option"><input type="radio" name="q19" value="d"><span class="option-marker"></span><span>The plant would consume all the oxygen and produce carbon dioxide</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="20" data-answer="b">
-                <span class="question-number">20</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What are the RAW MATERIALS (inputs) needed for photosynthesis?</p>
+            <div class="question-card" data-question="20" data-answer="d">
+                <div class="question-header">
+                    <span class="question-number">20</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A scientist sets up an experiment with two identical plants. Plant A is given water with normal carbon dioxide levels in the air. Plant B is given water but placed in an environment with very low carbon dioxide. What would be the MOST likely result after two weeks?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q20" value="a"><span class="option-marker"></span><span>Oxygen and glucose</span></label>
-                    <label class="option"><input type="radio" name="q20" value="b"><span class="option-marker"></span><span>Carbon dioxide and water</span></label>
-                    <label class="option"><input type="radio" name="q20" value="c"><span class="option-marker"></span><span>Glucose and oxygen</span></label>
-                    <label class="option"><input type="radio" name="q20" value="d"><span class="option-marker"></span><span>Nitrogen and water</span></label>
+                    <label class="option"><input type="radio" name="q20" value="a"><span class="option-marker"></span><span>Both plants would grow equally well</span></label>
+                    <label class="option"><input type="radio" name="q20" value="b"><span class="option-marker"></span><span>Plant B would grow faster because it has less carbon dioxide</span></label>
+                    <label class="option"><input type="radio" name="q20" value="c"><span class="option-marker"></span><span>Plant A would die but Plant B would survive</span></label>
+                    <label class="option"><input type="radio" name="q20" value="d"><span class="option-marker"></span><span>Plant B would show stunted growth because it lacks sufficient carbon dioxide for photosynthesis</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="21" data-answer="a">
-                <span class="question-number">21</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">What are the PRODUCTS (outputs) of photosynthesis?</p>
+            <div class="question-card" data-question="21" data-answer="b">
+                <div class="question-header">
+                    <span class="question-number">21</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">During photosynthesis, energy from sunlight is converted into chemical energy stored in glucose. What happens to this energy when the plant later uses the glucose?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q21" value="a"><span class="option-marker"></span><span>Glucose (sugar) and oxygen</span></label>
-                    <label class="option"><input type="radio" name="q21" value="b"><span class="option-marker"></span><span>Carbon dioxide and water</span></label>
-                    <label class="option"><input type="radio" name="q21" value="c"><span class="option-marker"></span><span>Water and carbon dioxide</span></label>
-                    <label class="option"><input type="radio" name="q21" value="d"><span class="option-marker"></span><span>Nitrogen and glucose</span></label>
+                    <label class="option"><input type="radio" name="q21" value="a"><span class="option-marker"></span><span>The energy disappears completely</span></label>
+                    <label class="option"><input type="radio" name="q21" value="b"><span class="option-marker"></span><span>The energy is released through respiration to power the plant's life processes</span></label>
+                    <label class="option"><input type="radio" name="q21" value="c"><span class="option-marker"></span><span>The energy is converted back into sunlight</span></label>
+                    <label class="option"><input type="radio" name="q21" value="d"><span class="option-marker"></span><span>The energy remains stored in glucose permanently</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="22" data-answer="true">
-                <span class="question-number">22</span><span class="question-type">True/False</span>
-                <p class="question-text">Sunlight provides the energy needed for photosynthesis.</p>
+            <div class="question-card" data-question="22" data-answer="false">
+                <div class="question-header">
+                    <span class="question-number">22</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">Photosynthesis can occur in complete darkness as long as the plant has water and carbon dioxide.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q22" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q22" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -361,20 +766,26 @@
             </div>
 
             <div class="question-card" data-question="23" data-answer="c">
-                <span class="question-number">23</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">In which plant organ does photosynthesis mainly occur?</p>
+                <div class="question-header">
+                    <span class="question-number">23</span>
+                    <span class="question-type challenging">Application</span>
+                </div>
+                <p class="question-text">A gardener notices that leaves on the lower branches of a tree, which are shaded by upper branches, are larger than the leaves receiving direct sunlight on top. What is the MOST likely explanation?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q23" value="a"><span class="option-marker"></span><span>Root</span></label>
-                    <label class="option"><input type="radio" name="q23" value="b"><span class="option-marker"></span><span>Stem</span></label>
-                    <label class="option"><input type="radio" name="q23" value="c"><span class="option-marker"></span><span>Leaf</span></label>
-                    <label class="option"><input type="radio" name="q23" value="d"><span class="option-marker"></span><span>Flower</span></label>
+                    <label class="option"><input type="radio" name="q23" value="a"><span class="option-marker"></span><span>Lower leaves are older so they are naturally larger</span></label>
+                    <label class="option"><input type="radio" name="q23" value="b"><span class="option-marker"></span><span>Lower leaves receive more water from the roots</span></label>
+                    <label class="option"><input type="radio" name="q23" value="c"><span class="option-marker"></span><span>Lower leaves grow larger to capture more of the limited light available for photosynthesis</span></label>
+                    <label class="option"><input type="radio" name="q23" value="d"><span class="option-marker"></span><span>Upper leaves are damaged by too much sunlight</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
-            <div class="question-card" data-question="24" data-answer="false">
-                <span class="question-number">24</span><span class="question-type">True/False</span>
-                <p class="question-text">Plants release carbon dioxide as a product of photosynthesis.</p>
+            <div class="question-card" data-question="24" data-answer="true">
+                <div class="question-header">
+                    <span class="question-number">24</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <p class="question-text">The oxygen that humans breathe is largely produced as a waste product from photosynthesis in plants and algae.</p>
                 <div class="options tf-options">
                     <label class="option"><input type="radio" name="q24" value="true"><span class="option-marker"></span><span>True</span></label>
                     <label class="option"><input type="radio" name="q24" value="false"><span class="option-marker"></span><span>False</span></label>
@@ -383,24 +794,27 @@
             </div>
 
             <div class="question-card" data-question="25" data-answer="d">
-                <span class="question-number">25</span><span class="question-type">Multiple Choice</span>
-                <p class="question-text">Which organ controls the body and is responsible for thinking and memory?</p>
+                <div class="question-header">
+                    <span class="question-number">25</span>
+                    <span class="question-type challenging">Analysis</span>
+                </div>
+                <p class="question-text">A neurologist studies a patient who has difficulty forming new memories but can still breathe, maintain heartbeat, and control body temperature. Which part of the brain is MOST likely affected, and why do other functions continue?</p>
                 <div class="options">
-                    <label class="option"><input type="radio" name="q25" value="a"><span class="option-marker"></span><span>Heart</span></label>
-                    <label class="option"><input type="radio" name="q25" value="b"><span class="option-marker"></span><span>Liver</span></label>
-                    <label class="option"><input type="radio" name="q25" value="c"><span class="option-marker"></span><span>Lungs</span></label>
-                    <label class="option"><input type="radio" name="q25" value="d"><span class="option-marker"></span><span>Brain</span></label>
+                    <label class="option"><input type="radio" name="q25" value="a"><span class="option-marker"></span><span>The entire brain is affected equally</span></label>
+                    <label class="option"><input type="radio" name="q25" value="b"><span class="option-marker"></span><span>The heart is affected, not the brain</span></label>
+                    <label class="option"><input type="radio" name="q25" value="c"><span class="option-marker"></span><span>No part of the brain is affected - this is a muscle problem</span></label>
+                    <label class="option"><input type="radio" name="q25" value="d"><span class="option-marker"></span><span>A specific region for memory is affected, while regions controlling automatic functions remain intact</span></label>
                 </div>
                 <div class="feedback"></div>
             </div>
 
             <div class="submit-container" id="submitContainer">
-                <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 0.9rem;">Make sure you have answered all questions before submitting.</p>
-                <button type="button" class="submit-btn" onclick="submitQuiz()">📝 Submit Part 1</button>
+                <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 1rem;">Review your answers carefully before submitting.</p>
+                <button type="button" class="submit-btn" onclick="submitQuiz()">📝 Submit Advanced Test - Part 1</button>
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 style="font-family: 'DM Serif Display', serif; color: var(--primary);">Part 1 Results</h2>
+                <h2 style="font-family: 'Crimson Pro', serif; color: var(--primary); font-size: 1.8rem;">Part 1 Results</h2>
                 <div class="score-circle" id="scoreCircle"><div class="score-inner"><span class="score-value" id="scoreValue">0%</span><span class="score-label">Score</span></div></div>
                 <div id="gradeBadge"></div>
                 <div class="stats-grid">
@@ -408,7 +822,7 @@
                     <div class="stat-card"><div class="stat-value" id="incorrectCount">0</div><div class="stat-label">Incorrect</div></div>
                     <div class="stat-card"><div class="stat-value" id="totalMarks">0/50</div><div class="stat-label">Marks</div></div>
                 </div>
-                <button type="button" class="review-btn" onclick="reviewAnswers()">📖 Review Answers</button>
+                <button type="button" class="review-btn" onclick="reviewAnswers()">📖 Review Answers & Explanations</button>
             </div>
         </form>
     </div>
@@ -434,34 +848,40 @@
 
         document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', updateProgress));
 
-        const answers = { q1:'c', q2:'b', q3:'true', q4:'c', q5:'false', q6:'d', q7:'b', q8:'true', q9:'c', q10:'a', q11:'b', q12:'c', q13:'d', q14:'true', q15:'b', q16:'a', q17:'c', q18:'b', q19:'c', q20:'b', q21:'a', q22:'true', q23:'c', q24:'false', q25:'d' };
+        const answers = { 
+            q1:'c', q2:'d', q3:'false', q4:'b', q5:'c', 
+            q6:'d', q7:'c', q8:'true', q9:'b', q10:'c', 
+            q11:'b', q12:'d', q13:'c', q14:'false', q15:'d', 
+            q16:'b', q17:'c', q18:'a', q19:'c', q20:'d', 
+            q21:'b', q22:'false', q23:'c', q24:'true', q25:'d' 
+        };
 
         const feedback = {
-            q1: 'MRS GREN = Movement, Respiration, Sensitivity, Growth, Reproduction, Excretion, Nutrition.',
-            q2: 'A symptom is a sign that something is wrong with the body.',
-            q3: 'Respiration releases energy from food in cells.',
-            q4: 'Excretion removes waste products from the body.',
-            q5: 'A car cannot perform ALL seven life processes, so it is not living.',
-            q6: 'A plant turning towards light shows sensitivity - responding to environment.',
-            q7: 'STEM = Science, Technology, Engineering, Mathematics.',
-            q8: 'Living things must perform ALL seven life processes.',
-            q9: 'Reproduction creates new organisms of the same kind.',
-            q10: 'Evidence is information that proves or disproves something.',
-            q11: 'Order: Cells → Tissues → Organs → Organ Systems → Organism.',
-            q12: 'The heart pumps blood around the body.',
-            q13: 'Kidneys filter blood and produce urine.',
-            q14: 'Skin is the largest organ in the human body.',
-            q15: 'Roots absorb water and minerals from soil.',
-            q16: 'The stomach breaks down food with acid and enzymes.',
-            q17: 'A tissue is similar cells working together for a specific function.',
-            q18: 'Muscle tissue contracts to produce movement.',
-            q19: 'Photosynthesis: plants make food using light energy.',
-            q20: 'Inputs for photosynthesis: carbon dioxide and water.',
-            q21: 'Outputs of photosynthesis: glucose and oxygen.',
-            q22: 'Sunlight provides energy for photosynthesis.',
-            q23: 'Photosynthesis mainly occurs in leaves.',
-            q24: 'Plants release OXYGEN (not CO2) in photosynthesis.',
-            q25: 'The brain controls thinking and memory.'
+            q1: 'During germination, the seed uses stored food (nutrition), releases energy (respiration), and increases in size (growth). Movement, sensitivity, and reproduction are not primarily demonstrated in this short observation period.',
+            q2: 'A symptom indicates that something is wrong but doesn\'t prove what the specific problem is. Fever could be caused by many different illnesses. Evidence would be test results that identify the specific disease causing the fever.',
+            q3: 'Respiration occurs constantly in all living cells to release energy for life processes, not just during movement or exercise. Even when you\'re sleeping, your cells are respiring.',
+            q4: 'Without light, plants cannot perform photosynthesis, which is how they make food (nutrition). This is the most directly affected process, though eventually all other processes would be impacted.',
+            q5: 'While robots can mimic some characteristics of life, they don\'t perform true biological processes. They don\'t have cells, don\'t perform cellular respiration, can\'t grow organically, and don\'t excrete waste products in the biological sense.',
+            q6: 'A cat\'s pupil contracting involves detecting light (sensitivity) and then the iris muscle moving to change pupil size (movement). These two processes work together in response to the stimulus.',
+            q7: 'Medical research requires Science (understanding diseases and biology), Technology (for diagnostic equipment and treatment methods), and Mathematics (for analyzing data and statistics). All three would be essential, though Engineering might also play a role in developing medical devices.',
+            q8: 'Even single-celled organisms like bacteria perform all seven life processes (MRS GREN), which is why they are classified as living organisms despite their simplicity.',
+            q9: 'Individual organisms don\'t need to reproduce to survive, but the species needs reproduction to continue existing after individuals age and die. Reproduction ensures species survival across generations.',
+            q10: 'Good scientific evidence requires a control group for comparison. Some headaches might disappear naturally over time without medicine. Comparing treated patients to untreated patients would provide stronger evidence that the medicine actually works.',
+            q11: 'Tissues are made of many cells working together. Organs contain multiple tissues. This redundancy means that losing some cells doesn\'t necessarily stop the tissue or organ from functioning, as long as enough cells remain.',
+            q12: 'The heart pumps blood throughout the body, delivering oxygen and nutrients to all cells and removing waste products. If it stops, all organ systems are immediately affected because every cell depends on this delivery system.',
+            q13: 'The kidneys filter blood and remove waste products, producing urine. When they fail, waste products accumulate in the blood, demonstrating their excretory function.',
+            q14: 'The skin is part of the integumentary system (along with hair and nails). Being on the outside doesn\'t prevent it from being part of an organ system. It protects the body, regulates temperature, and performs other functions.',
+            q15: 'Roots absorb water and minerals from the soil. If minerals are lacking, roots cannot provide them to the rest of the plant, leading to poor growth and potentially yellowing leaves due to lack of nutrients needed for photosynthesis.',
+            q16: 'The stomach uses acid and enzymes to break down food. With insufficient acid, food won\'t break down as effectively, making it harder for the body to absorb nutrients from the partially digested food.',
+            q17: 'The nervous system (nerve tissue) sends electrical signals to muscles (muscle tissue) to coordinate movement. When your brain decides to move your arm, nerve signals travel to arm muscles telling them to contract.',
+            q18: 'Training causes muscle cells to increase in size and number, which is the life process of growth. This occurs at both the tissue level (muscle tissue) and organ level (muscles as organs).',
+            q19: 'The candle consumed oxygen and produced carbon dioxide. In sunlight, the plant would use the carbon dioxide and water for photosynthesis, producing oxygen. This demonstrates the complementary relationship between photosynthesis and combustion/respiration.',
+            q20: 'Carbon dioxide is a raw material for photosynthesis. Without sufficient CO₂, the plant cannot make glucose effectively, leading to reduced growth even if it has water and light.',
+            q21: 'The light energy stored in glucose is released when the plant breaks down glucose through respiration. This released energy powers all the plant\'s life processes - an example of energy transformation.',
+            q22: 'Sunlight is essential for photosynthesis because it provides the energy needed to convert carbon dioxide and water into glucose. Without light, photosynthesis cannot occur, no matter how much water and CO₂ are available.',
+            q23: 'This is an adaptation to light availability. Shaded leaves grow larger to increase their surface area for capturing the limited light available. This maximizes their ability to photosynthesize in low-light conditions.',
+            q24: 'Photosynthesis produces oxygen as a by-product. Plants and algae release vast amounts of oxygen into the atmosphere through photosynthesis, which is essential for animal life including humans.',
+            q25: 'Different parts of the brain control different functions. Memory formation occurs in specific regions (like the hippocampus), while automatic functions like breathing and heart rate are controlled by other regions (like the brainstem). Damage to one area doesn\'t necessarily affect others.'
         };
 
         function submitQuiz() {
@@ -470,8 +890,12 @@
             for (let i = 1; i <= totalQ; i++) {
                 const card = document.querySelector(`[data-question="${i}"]`);
                 const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                if (sel && sel.value === answers[`q${i}`]) { correct++; card.classList.add('correct'); }
-                else { card.classList.add('incorrect'); }
+                if (sel && sel.value === answers[`q${i}`]) { 
+                    correct++; 
+                    card.classList.add('correct'); 
+                } else { 
+                    card.classList.add('incorrect'); 
+                }
             }
             const pct = Math.round((correct / totalQ) * 100), marks = correct * 2;
             document.getElementById('scoreValue').textContent = `${pct}%`;
@@ -480,10 +904,10 @@
             document.getElementById('totalMarks').textContent = `${marks}/50`;
             document.getElementById('scoreCircle').style.setProperty('--score-percent', `${pct}%`);
             let grade, gc;
-            if (pct >= 90) { grade = '🌟 Excellent!'; gc = 'grade-a'; }
-            else if (pct >= 75) { grade = '👏 Great Job!'; gc = 'grade-b'; }
+            if (pct >= 90) { grade = '🌟 Outstanding!'; gc = 'grade-a'; }
+            else if (pct >= 75) { grade = '👏 Excellent Work!'; gc = 'grade-b'; }
             else if (pct >= 60) { grade = '👍 Good Effort!'; gc = 'grade-c'; }
-            else { grade = '📚 Keep Studying!'; gc = 'grade-d'; }
+            else { grade = '📚 Keep Practicing!'; gc = 'grade-d'; }
             document.getElementById('gradeBadge').innerHTML = `<span class="grade-badge ${gc}">${grade}</span>`;
             document.getElementById('submitContainer').style.display = 'none';
             document.getElementById('resultsContainer').classList.add('show');
