@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 1 Science Practice Examination</title>
+    <style>
+        @media print {
+            body {
+                margin: 0;
+                padding: 20mm;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            .no-break {
+                page-break-inside: avoid;
+            }
+        }
+        
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            line-height: 1.6;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .school-logo {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .student-info {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .student-info table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .student-info td {
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .student-info td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .instructions h2 {
+            margin-top: 0;
+            font-size: 16px;
+            color: #495057;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        
+        .instructions li {
+            margin: 5px 0;
+        }
+        
+        .section {
+            margin: 25px 0;
+        }
+        
+        .section-header {
+            background: #4a90e2;
+            color: white;
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px 0;
+        }
+        
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #4a90e2;
+            background: #f8f9fa;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        
+        .marks {
+            float: right;
+            background: #2c3e50;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .answer-space {
+            border: 1px solid #ccc;
+            min-height: 60px;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 27px,
+                #e0e0e0 27px,
+                #e0e0e0 28px
+            );
+            line-height: 28px;
+        }
+        
+        .answer-space.small {
+            min-height: 40px;
+        }
+        
+        .answer-space.large {
+            min-height: 100px;
+        }
+        
+        .answer-space.extra-large {
+            min-height: 150px;
+        }
+        
+        .multiple-choice {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .choice {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .choice-box {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #333;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .sub-question {
+            margin: 15px 0 15px 30px;
+        }
+        
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        table.data-table th,
+        table.data-table td {
+            border: 2px solid #333;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        table.data-table th {
+            background: #e9ecef;
+            font-weight: bold;
+        }
+        
+        .diagram-space {
+            border: 2px solid #333;
+            min-height: 200px;
+            margin: 15px 0;
+            background: white;
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+        
+        .total-marks {
+            text-align: right;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            background: #e9ecef;
+        }
+        
+        .end-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-top: 2px solid #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="school-logo">
+        <strong>PASCAL Private Secondary School</strong><br>
+        The Science Department<br>
+        Lefkosia
+    </div>
+    <h1>Year 1 Science: Practice Examination</h1>
+    <div class="exam-info">
+        <span><strong>Time Allowed:</strong> 1 Hour (60 minutes)</span>
+        <span><strong>Total Marks:</strong> 57</span>
+    </div>
+</div>
+
+<div class="student-info">
+    <table>
+        <tr>
+            <td>Student Name:</td>
+            <td>_________________________________________________________</td>
+        </tr>
+        <tr>
+            <td>Class:</td>
+            <td>_________________________________________________________</td>
+        </tr>
+        <tr>
+            <td>Date:</td>
+            <td>_________________________________________________________</td>
+        </tr>
+    </table>
+</div>
+
+<div class="instructions">
+    <h2>Instructions to Candidates</h2>
+    <ul>
+        <li>Answer <strong>ALL</strong> questions in the spaces provided.</li>
+        <li>Write your answers in <strong>black or blue pen</strong>. Pencil may be used for diagrams only.</li>
+        <li>Read each question carefully before you start to answer it.</li>
+        <li>The marks for each question are shown in brackets [ ].</li>
+        <li>Show all your working in calculations.</li>
+        <li>Check your work carefully.</li>
+        <li>You may use a calculator for calculations.</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION A: CELLS, TISSUES, ORGANS AND SYSTEMS -->
+<div class="section">
+    <div class="section-header">SECTION A: Cells, Tissues, Organs and Systems (30 marks)</div>
+
+    <div class="question no-break">
+        <div class="question-number">1. <span class="marks">[5]</span></div>
+        <div class="question-text">
+            <p>Ancient Egyptian doctors believed that a person's heart contained air because they could only examine organs when people were dead.</p>
+            <p><strong>(a)</strong> Explain why this belief was incorrect and what actually flows through the heart.</p>
+            <div class="answer-space large"></div>
+            <div class="sub-question">
+                <strong>(b)</strong> Modern doctors use evidence to make diagnoses. A patient has a very fast pulse and experiences chest pain after eating. The doctor suspects there are two possible organ problems.</p>
+                <p style="margin-left: 0;">Suggest which two organs might be causing these symptoms and explain your reasoning for each.</p>
+                <div class="answer-space extra-large"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question no-break">
+        <div class="question-number">2. <span class="marks">[5]</span></div>
+        <div class="question-text">
+            <p><strong>(a)</strong> Write out what the mnemonic MRS GREN stands for.</p>
+            <div class="answer-space large">
+                M: ______________________________________<br><br>
+                R: ______________________________________<br><br>
+                S: ______________________________________<br><br>
+                G: ______________________________________<br><br>
+                R: ______________________________________<br><br>
+                E: ______________________________________<br><br>
+                N: ______________________________________
+            </div>
+            <div class="sub-question">
+                <strong>(b)</strong> A car can move and needs nutrition (fuel). Explain why a car is NOT a living organism. In your answer, refer to at least TWO life processes that the car cannot do.</p>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question no-break">
+        <div class="question-number">3. <span class="marks">[7]</span></div>
+        <div class="question-text">
+            <p><strong>(a)</strong> In the space below, draw and label a diagram showing the four levels of organization in a plant root, from smallest to largest. Use arrows to show the progression from one level to the next.</p>
+            <p style="margin-left: 0;">Your diagram should include these labels: <strong>cell, tissue, organ, organ system</strong></p>
+            <div class="diagram-space" style="color: transparent; min-height: 250px;">
+                &nbsp;
+            </div>
+            <div class="sub-question">
+                <strong>(b)</strong> Root hair tissue is specialized for absorbing water. Explain how the structure of root hair cells (with their long extensions) helps them carry out this function more effectively than regular cells.</p>
+                <div class="answer-space large"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(c)</strong> Name one tissue that you would expect to find in a carrot root and explain what it does.</p>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="question no-break">
+        <div class="question-number">4. <span class="marks">[8]</span></div>
+        <div class="question-text">
+            <p>A student is examining onion cells and liver tissue under a microscope.</p>
+            <p><strong>(a)</strong> The microscope has an eyepiece lens with ×15 magnification and three objective lenses: ×4, ×10, and ×40.</p>
+            <div class="sub-question">
+                <strong>(i)</strong> Calculate the total magnification when using the ×40 objective lens. Show your working.
+                <div class="answer-space"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(ii)</strong> The student observes an onion cell that appears to be 6 mm long when viewed under ×600 magnification. Calculate the actual length of the cell in millimeters (mm). Show all your working.
+                <div style="margin: 10px 0; padding: 10px; background: #fff3cd; border-left: 4px solid #ffc107;">
+                    <strong>Hint:</strong> To find actual size, divide the observed size by the magnification.<br>
+                    Actual size = Observed size ÷ Magnification
+                </div>
+                <div class="answer-space large"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(b)</strong> When comparing onion cells to liver cells, the student notices that the onion cells have cell walls but the liver cells do not.</p>
+                <p style="margin-left: 0;"><strong>(i)</strong> Draw a labeled diagram of a plant cell in the space below. Your diagram must include and label: cell wall, cell membrane, nucleus, cytoplasm, chloroplast, and large vacuole.</p>
+                <div class="diagram-space" style="color: transparent; min-height: 250px;">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="sub-question">
+                <strong>(ii)</strong> Explain why root hair cells do not have chloroplasts, even though they are plant cells.
+                <div class="answer-space"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question no-break">
+        <div class="question-number">5. <span class="marks">[6]</span></div>
+        <div class="question-text">
+            <p>The human body contains several organ systems that work together.</p>
+            <p><strong>(a)</strong> Complete the table below by filling in the missing information:</p>
+            <table class="data-table">
+                <tr>
+                    <th>Organ System</th>
+                    <th>Two Main Organs</th>
+                    <th>Main Function</th>
+                </tr>
+                <tr>
+                    <td>Circulatory system</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Lungs, trachea</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Urinary system</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            <div class="sub-question">
+                <strong>(b)</strong> Explain why organ systems need to work together. Give a specific example showing how two different organ systems depend on each other.</p>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION B: MIXTURES AND SEPARATION -->
+<div class="section">
+    <div class="section-header">SECTION B: Mixtures and Separation (27 marks)</div>
+
+    <div class="question no-break">
+        <div class="question-number">6. <span class="marks">[6]</span></div>
+        <div class="question-text">
+            <p>A forensic scientist needs to analyze a sample of muddy water collected from a crime scene.</p>
+            <p><strong>(a)</strong> Describe the step-by-step method the scientist should use to separate the sand and mud from the water using filtration. Your method should:</p>
+            <ul style="margin-left: 30px;">
+                <li>Be written as numbered steps</li>
+                <li>Use command words (imperative verbs)</li>
+                <li>Be clear enough that another scientist could repeat it exactly</li>
+            </ul>
+            <div class="answer-space extra-large"></div>
+            <div class="sub-question">
+                <strong>(b)</strong> After filtration, the water is still not completely pure. Explain why, and identify what type of mixture the filtered water is.</p>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question no-break">
+        <div class="question-number">7. <span class="marks">[7]</span></div>
+        <div class="question-text">
+            <p>Scientists classify mixtures based on the size and behavior of particles.</p>
+            <p><strong>(a)</strong> Complete the following table by placing a tick (✓) in the correct column(s) for each substance:</p>
+            <table class="data-table">
+                <tr>
+                    <th>Substance</th>
+                    <th>Solution</th>
+                    <th>Suspension</th>
+                    <th>Colloid</th>
+                </tr>
+                <tr>
+                    <td>Salt dissolved in water</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Sand and water mixture (recently stirred)</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Milk</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Fog</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            <div class="sub-question">
+                <strong>(b)</strong> Explain the key difference between a suspension and a colloid in terms of particle size and whether the mixture will separate if left standing.</p>
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="question no-break">
+        <div class="question-number">8. <span class="marks">[6]</span></div>
+        <div class="question-text">
+            <p>A student investigates the solubility of copper sulfate in water.</p>
+            <p><strong>(a)</strong> At 20°C, the solubility of copper sulfate is 32 g per 100 g of water.</p>
+            <div class="sub-question">
+                <strong>(i)</strong> The student adds 25 g of copper sulfate to 100 g of water at 20°C and stirs thoroughly. Will all the copper sulfate dissolve? Explain your answer.
+                <div class="answer-space"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(ii)</strong> Calculate the maximum mass of copper sulfate that would dissolve in 250 g of water at 20°C. Show your working.
+                <div class="answer-space large"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(b)</strong> When 36 g of table salt is dissolved in 100 g of water at 20°C, the student measures the total mass of the solution as 136 g.</p>
+                <p style="margin-left: 0;">Explain why the mass of the solution equals the mass of the salt plus the mass of the water. What scientific principle does this demonstrate?
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question no-break">
+        <div class="question-number">9. <span class="marks">[6]</span></div>
+        <div class="question-text">
+            <p>A water treatment plant must clean waste water before it can be returned to rivers.</p>
+            <p><strong>(a)</strong> The waste water treatment process involves several stages:</p>
+            <ul style="margin-left: 30px;">
+                <li>Stage 1: Screening (using a sieve)</li>
+                <li>Stage 2: Settlement ponds</li>
+                <li>Stage 3: Adding chemicals to clump remaining particles</li>
+                <li>Stage 4: Filtration</li>
+            </ul>
+            <div class="sub-question">
+                <strong>(i)</strong> Draw a simple flow chart showing these four stages in order. Use arrows to connect each stage.
+                <div class="answer-space extra-large"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(ii)</strong> Explain why Stage 1 (screening) is important. What type of substances does it remove?
+                <div class="answer-space"></div>
+            </div>
+            <div class="sub-question">
+                <strong>(iii)</strong> After Stage 2 (settlement ponds), the water is clearer but still contains some solids. Explain what has happened in the settlement ponds and what type of mixture the water is at this stage.
+                <div class="answer-space large"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="total-marks">
+    <strong>END OF EXAMINATION</strong><br>
+    Total: 57 marks
+</div>
+
+<div class="end-section">
+    Please check your work carefully before handing in your paper.
+</div>
+
+</body>
+</html>
