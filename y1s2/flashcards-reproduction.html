@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproduction Flashcards - Year 7 Science</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: white;
+            color: #9c27b0;
+            border-color: white;
+        }
+
+        .progress {
+            text-align: center;
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card-front {
+            background: white;
+        }
+
+        .card-back {
+            background: #fce4ec;
+            transform: rotateY(180deg);
+        }
+
+        .card-label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #e91e63;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-category {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.7em;
+            font-weight: 600;
+            background: #f3e5f5;
+            color: #7b1fa2;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        .card-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .card-front h2 {
+            color: #880e4f;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .card-back h3 {
+            color: #e91e63;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .card-back p {
+            color: #555;
+            font-size: 1.15em;
+            line-height: 1.7;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-prev, .btn-next {
+            background: white;
+            color: #9c27b0;
+        }
+
+        .btn-prev:hover, .btn-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-shuffle {
+            background: #ffd54f;
+            color: #333;
+        }
+
+        .btn-shuffle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .hint {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5em; }
+            .flashcard { height: 380px; }
+            .card-face { padding: 30px 20px; }
+            .card-front h2 { font-size: 1.3em; }
+            .card-back p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7B Reproduction Flashcards</h1>
+        <p class="subtitle">Year 1 Science - Semester 2</p>
+
+        <div class="category-filter">
+            <button class="filter-btn active" onclick="filterCards('all')">All</button>
+            <button class="filter-btn" onclick="filterCards('7Ba')">7Ba Sexual Reproduction</button>
+            <button class="filter-btn" onclick="filterCards('7Bb')">7Bb Reproductive Organs</button>
+            <button class="filter-btn" onclick="filterCards('7Bc')">7Bc Becoming Pregnant</button>
+            <button class="filter-btn" onclick="filterCards('7Bd')">7Bd Gestation & Birth</button>
+            <button class="filter-btn" onclick="filterCards('7Be')">7Be Growing Up</button>
+        </div>
+
+        <div class="progress" id="progress">Card 1 of 40</div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="card-face card-front">
+                    <div class="card-label">Question</div>
+                    <div class="card-category" id="category"></div>
+                    <div class="card-content">
+                        <h2 id="question"></h2>
+                    </div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-label">Answer</div>
+                    <div class="card-content">
+                        <p id="answer"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-prev" onclick="prevCard()">&#8592; Previous</button>
+            <button class="btn-shuffle" onclick="shuffleCards()">Shuffle</button>
+            <button class="btn-next" onclick="nextCard()">Next &#8594;</button>
+        </div>
+
+        <div class="hint">Click the card to flip it. Use arrow keys to navigate.</div>
+    </div>
+
+    <script>
+        const allFlashcards = [
+            // 7Ba - Animal Sexual Reproduction
+            {
+                category: "7Ba",
+                question: "What are endangered animals?",
+                answer: "Endangered animals are those that are in danger of becoming extinct because there are very few left."
+            },
+            {
+                category: "7Ba",
+                question: "What is sexual reproduction?",
+                answer: "Sexual reproduction requires two individuals to produce new organisms of the same type. It involves two types of specialised cells called sex cells or gametes."
+            },
+            {
+                category: "7Ba",
+                question: "What are gametes?",
+                answer: "Gametes are specialised sex cells. Males make gametes called sperm cells and females make gametes called egg cells (or ova)."
+            },
+            {
+                category: "7Ba",
+                question: "What is fertilisation?",
+                answer: "Fertilisation is when a sperm cell enters an egg cell and the two cell nuclei fuse (become one). A single fertilised egg cell or zygote is formed, which can grow into a new organism."
+            },
+            {
+                category: "7Ba",
+                question: "What is external fertilisation?",
+                answer: "External fertilisation is when the sperm cells reach the egg cells outside the bodies of the animals (e.g. in fish). This usually occurs in water."
+            },
+            {
+                category: "7Ba",
+                question: "What is internal fertilisation?",
+                answer: "Internal fertilisation is when the male parent places sperm cells inside the female. Birds and mammals use internal fertilisation."
+            },
+            {
+                category: "7Ba",
+                question: "Why do animals that use external fertilisation produce huge numbers of egg cells?",
+                answer: "Because some egg cells do not get fertilised (sperm cells are washed away), and many fertilised egg cells are eaten by other animals. Producing many eggs ensures that some survive."
+            },
+            {
+                category: "7Ba",
+                question: "Why do birds and mammals produce fewer egg cells than fish?",
+                answer: "Because they use internal fertilisation, so sperm cells are more likely to reach the egg cells. They also usually care for their fertilised egg cells and offspring."
+            },
+            {
+                category: "7Ba",
+                question: "Name an animal that uses external fertilisation and one that uses internal fertilisation.",
+                answer: "External fertilisation: frogs, toads, fish. Internal fertilisation: birds, mammals (e.g. rhinoceros, humans)."
+            },
+            // 7Bb - Reproductive Organs
+            {
+                category: "7Bb",
+                question: "What are reproductive organs?",
+                answer: "Reproductive organs are the organs that produce gametes. They form an organ system called the reproductive system."
+            },
+            {
+                category: "7Bb",
+                question: "Where are male gametes (sperm cells) made?",
+                answer: "Sperm cells are made in the testes. The testes hang outside the body in a bag of skin called the scrotum, because sperm cells need a cooler temperature than the body to develop properly."
+            },
+            {
+                category: "7Bb",
+                question: "What happens to sperm cells after they are released from the testes?",
+                answer: "They travel through sperm ducts, where fluids are added from glands. The fluids provide energy for the sperm cells. The mixture of sperm cells and fluids is called semen."
+            },
+            {
+                category: "7Bb",
+                question: "What is semen?",
+                answer: "Semen is the mixture of sperm cells and fluids (from glands). It leaves the body through the urethra, which is inside the penis."
+            },
+            {
+                category: "7Bb",
+                question: "What is the urethra?",
+                answer: "The urethra is the tube inside the penis that carries semen and urine out of the body (but never at the same time)."
+            },
+            {
+                category: "7Bb",
+                question: "What is circumcision?",
+                answer: "Circumcision is a process in which the foreskin (the covering of skin that protects the sensitive head of the penis) is removed."
+            },
+            {
+                category: "7Bb",
+                question: "Name the four main parts of the male reproductive system.",
+                answer: "Testes (make sperm), sperm duct (carries sperm), gland (adds fluids to make semen), and penis (contains the urethra)."
+            },
+            {
+                category: "7Bb",
+                question: "How is a sperm cell adapted to its function?",
+                answer: "It has a streamlined shape, a tail to swim, a head containing substances to help it enter the egg, a nucleus with genetic material, and long spiral mitochondria that release energy for the tail."
+            },
+            {
+                category: "7Bb",
+                question: "Where are egg cells (ova) produced?",
+                answer: "Egg cells are produced in the ovaries. After puberty, one egg cell is usually released from an ovary every 28-32 days."
+            },
+            {
+                category: "7Bb",
+                question: "What is the menopause?",
+                answer: "The menopause is when a woman's ovaries stop releasing egg cells, at about the age of 45-55 years."
+            },
+            {
+                category: "7Bb",
+                question: "What is the function of the oviduct (fallopian tube)?",
+                answer: "After leaving an ovary, the egg cell enters the oviduct. The oviducts are lined with hairs called cilia that sweep egg cells towards the uterus."
+            },
+            {
+                category: "7Bb",
+                question: "What is the uterus?",
+                answer: "The uterus is where a baby will develop. It has strong muscular walls and a soft lining."
+            },
+            {
+                category: "7Bb",
+                question: "What is the cervix?",
+                answer: "The cervix is a ring of muscle at the lower end of the uterus. It holds the baby in place during pregnancy and opens into the vagina."
+            },
+            {
+                category: "7Bb",
+                question: "Name the four main parts of the female reproductive system.",
+                answer: "Ovary (produces egg cells), oviduct/fallopian tube (sweeps egg cell along), uterus (where baby develops), and cervix (muscle at entrance to uterus)."
+            },
+            {
+                category: "7Bb",
+                question: "How is an egg cell adapted to its function?",
+                answer: "It has a jelly coat that makes sure only one sperm cell can enter, a nucleus containing genetic material, and cytoplasm that contains a store of food/energy for the fertilised egg cell (zygote)."
+            },
+            // 7Bc - Becoming Pregnant
+            {
+                category: "7Bc",
+                question: "What happens during sexual intercourse?",
+                answer: "The man's penis fills with blood (erection), is inserted into the vagina, and ejaculation occurs where semen is released at the top of the vagina."
+            },
+            {
+                category: "7Bc",
+                question: "What is ejaculation?",
+                answer: "Ejaculation is when semen (sperm cells mixed with special liquids from glands) is forced out of the penis and into the top of the vagina."
+            },
+            {
+                category: "7Bc",
+                question: "How do sperm cells reach the egg cell?",
+                answer: "The semen is sucked up through the cervix. Small movements of the uterus wall carry it to the oviducts. Sperm cells then swim along the oviducts to meet the egg cell."
+            },
+            {
+                category: "7Bc",
+                question: "Where does fertilisation occur?",
+                answer: "Fertilisation occurs in the oviduct (fallopian tube)."
+            },
+            {
+                category: "7Bc",
+                question: "What happens after fertilisation?",
+                answer: "The fertilised egg cell divides into two cells, then those divide again, and so on. The cells form a ball of cells (embryo) as they travel towards the uterus."
+            },
+            {
+                category: "7Bc",
+                question: "What is implantation?",
+                answer: "Implantation is when the ball of cells (embryo) sinks into the soft lining of the uterus. The woman is now pregnant."
+            },
+            {
+                category: "7Bc",
+                question: "What are identical twins?",
+                answer: "Identical twins form when a fertilised egg cell divides into two and the two new cells separate. Each grows into a separate embryo with exactly the same features."
+            },
+            {
+                category: "7Bc",
+                question: "What are non-identical twins?",
+                answer: "Non-identical twins occur when a woman's ovaries release two eggs at the same time and both are fertilised. These twins will not be identical."
+            },
+            // 7Bc continued - Pregnancy
+            {
+                category: "7Bc",
+                question: "What is the amnion and amniotic fluid?",
+                answer: "The amnion is a bag that surrounds the embryo. It contains watery amniotic fluid that protects the embryo."
+            },
+            {
+                category: "7Bc",
+                question: "What is the placenta?",
+                answer: "The placenta is a plate-shaped organ attached to the uterus lining. Inside it, oxygen, water and food pass from the mother's blood into the embryo's blood, and waste materials (like carbon dioxide) pass from the embryo to the mother."
+            },
+            {
+                category: "7Bc",
+                question: "What is the umbilical cord?",
+                answer: "The umbilical cord carries the embryo's blood to and from the placenta. It connects the embryo to the placenta."
+            },
+            {
+                category: "7Bc",
+                question: "Why does the mother's blood not mix with the embryo's blood?",
+                answer: "Because the mother's blood is pumped around her body under a lot of pressure, which would damage the blood vessels of the delicate embryo."
+            },
+            // 7Bd - Gestation and Birth
+            {
+                category: "7Bd",
+                question: "What is the gestation period?",
+                answer: "The gestation period is the time from fertilisation until birth. It lasts about 9 months (40 weeks) in humans."
+            },
+            {
+                category: "7Bd",
+                question: "When does an embryo become a foetus?",
+                answer: "Once the embryo has developed a full set of organs, it is called a foetus (pronounced 'fee-tus'). This takes about 8 weeks in humans."
+            },
+            {
+                category: "7Bd",
+                question: "What is a premature baby?",
+                answer: "A premature baby is one that is born small and very early. A foetus that does not get enough oxygen (e.g. if the mother smokes) is more likely to be premature."
+            },
+            {
+                category: "7Bd",
+                question: "What are ultrasound scans used for during pregnancy?",
+                answer: "Ultrasound scans produce images of the foetus. Doctors use them to check the stage of development and for any problems."
+            },
+            {
+                category: "7Bd",
+                question: "What substances can harm a foetus during pregnancy?",
+                answer: "Alcohol, illegal drugs (such as heroin), nicotine from cigarette smoke, and some viruses (e.g. rubella) can pass through the placenta and harm the foetus."
+            },
+            {
+                category: "7Bd",
+                question: "What is labour?",
+                answer: "Labour is the process of birth. The uterus begins to contract (squeeze). Contractions start gently but become more powerful and frequent."
+            },
+            {
+                category: "7Bd",
+                question: "Describe the main stages of birth.",
+                answer: "1) Contractions begin. 2) The cervix muscles relax and widen to about 10 cm. 3) The amnion breaks and amniotic fluid flows out. 4) The baby is pushed out through the vagina, usually head first. 5) The umbilical cord is cut (leaving the navel). 6) The placenta detaches and passes out as the afterbirth."
+            },
+            {
+                category: "7Bd",
+                question: "What is the afterbirth?",
+                answer: "The afterbirth is the placenta, which detaches from the uterus and passes out through the vagina within about 30 minutes after the baby is born."
+            },
+            {
+                category: "7Bd",
+                question: "Why is breast milk important for a new baby?",
+                answer: "Breast milk from the mammary glands contains nutrients for energy and growth, and also contains antibodies that help prevent diseases caused by microorganisms."
+            },
+            // 7Be - Growing Up
+            {
+                category: "7Be",
+                question: "What is puberty?",
+                answer: "Puberty is a process in which big changes happen in the body, including fast growth and development of the reproductive system. It usually starts between ages 10-15."
+            },
+            {
+                category: "7Be",
+                question: "What triggers puberty?",
+                answer: "Puberty is started by sex hormones, which are substances released by the brain, ovaries, and testes."
+            },
+            {
+                category: "7Be",
+                question: "What changes happen to boys during puberty?",
+                answer: "Shoulders get wider, hair grows on arms/face/chest, stronger body smell, pubic hair grows, testes start making sperm cells, voice deepens ('breaks'), testes and penis get bigger."
+            },
+            {
+                category: "7Be",
+                question: "What changes happen to girls during puberty?",
+                answer: "Hips get wider, underarm hair grows, stronger body smell, pubic hair grows, ovaries start releasing egg cells (ovulation), and periods (menstruation) begin."
+            },
+            {
+                category: "7Be",
+                question: "What is adolescence?",
+                answer: "Adolescence is the time when all the emotional and physical changes of puberty occur. It includes becoming more aware of others and emotional changes as well."
+            },
+            {
+                category: "7Be",
+                question: "What is the menstrual cycle?",
+                answer: "The menstrual cycle is a series of events in the female reproductive system. It starts after puberty, stops at the menopause, takes about 28 days, and is controlled by sex hormones."
+            },
+            {
+                category: "7Be",
+                question: "What happens during menstruation (a period)?",
+                answer: "Menstruation is when the soft lining of the uterus breaks apart and leaves the body through the vagina with a little blood and an unfertilised egg cell. A period usually lasts 3-7 days."
+            },
+            {
+                category: "7Be",
+                question: "What is ovulation?",
+                answer: "Ovulation is when an egg cell is released from one of the ovaries. It happens about 14 days after the cycle has started (after menstruation)."
+            },
+            {
+                category: "7Be",
+                question: "Describe the stages of the menstrual cycle in order.",
+                answer: "1) Menstruation: uterus lining breaks down and leaves the body. 2) The lining of the uterus starts to build up again and blood vessels develop. 3) About 14 days after the cycle started, ovulation occurs (egg released from ovary). 4) If the egg is not fertilised, the cycle restarts with menstruation."
+            },
+            {
+                category: "7Be",
+                question: "What happens in the menstrual cycle if the egg IS fertilised?",
+                answer: "If the egg is fertilised, the woman becomes pregnant. The cycle stops, and the thick uterus lining continues to grow to provide the placenta with a good supply of nutrients and oxygen."
+            },
+            {
+                category: "7Be",
+                question: "What is a life cycle?",
+                answer: "A life cycle describes the changes in an organism from birth until it can have offspring. Humans have a long life cycle; mice have short life cycles (they can reproduce in 5 weeks)."
+            }
+        ];
+
+        let currentCards = [...allFlashcards];
+        let currentCard = 0;
+        let isFlipped = false;
+
+        function filterCards(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (category === 'all') {
+                currentCards = [...allFlashcards];
+            } else {
+                currentCards = allFlashcards.filter(c => c.category === category);
+            }
+            currentCard = 0;
+            displayCard();
+        }
+
+        function displayCard() {
+            if (currentCards.length === 0) return;
+            document.getElementById('question').textContent = currentCards[currentCard].question;
+            document.getElementById('answer').textContent = currentCards[currentCard].answer;
+            document.getElementById('category').textContent = currentCards[currentCard].category;
+            document.getElementById('progress').textContent = `Card ${currentCard + 1} of ${currentCards.length}`;
+
+            if (isFlipped) {
+                document.getElementById('flashcard').classList.remove('flipped');
+                isFlipped = false;
+            }
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % currentCards.length;
+            displayCard();
+        }
+
+        function prevCard() {
+            currentCard = (currentCard - 1 + currentCards.length) % currentCards.length;
+            displayCard();
+        }
+
+        function shuffleCards() {
+            for (let i = currentCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+            }
+            currentCard = 0;
+            displayCard();
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextCard();
+            if (e.key === 'ArrowLeft') prevCard();
+            if (e.key === ' ') { e.preventDefault(); flipCard(); }
+        });
+
+        displayCard();
+    </script>
+</body>
+</html>
