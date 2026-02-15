@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -51,9 +51,9 @@
 
         .filter-btn {
             padding: 6px 14px;
-            border: 2px solid rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.15);
-            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.85em;
@@ -62,9 +62,9 @@
         }
 
         .filter-btn:hover, .filter-btn.active {
-            background: white;
-            color: #9c27b0;
-            border-color: white;
+            background: #e94560;
+            color: white;
+            border-color: #e94560;
         }
 
         .progress {
@@ -107,11 +107,11 @@
         }
 
         .card-front {
-            background: white;
+            background: #1e293b;
         }
 
         .card-back {
-            background: #fce4ec;
+            background: #0f2027;
             transform: rotateY(180deg);
         }
 
@@ -121,7 +121,7 @@
             left: 20px;
             font-size: 0.8em;
             font-weight: bold;
-            color: #e91e63;
+            color: #e94560;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -132,8 +132,8 @@
             right: 20px;
             font-size: 0.7em;
             font-weight: 600;
-            background: #f3e5f5;
-            color: #7b1fa2;
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
             padding: 3px 10px;
             border-radius: 10px;
         }
@@ -144,20 +144,20 @@
         }
 
         .card-front h2 {
-            color: #880e4f;
+            color: #e2e8f0;
             font-size: 1.6em;
             margin-bottom: 10px;
             line-height: 1.4;
         }
 
         .card-back h3 {
-            color: #e91e63;
+            color: #e94560;
             font-size: 1.2em;
             margin-bottom: 15px;
         }
 
         .card-back p {
-            color: #555;
+            color: #cbd5e1;
             font-size: 1.15em;
             line-height: 1.7;
         }
@@ -180,30 +180,36 @@
         }
 
         .btn-prev, .btn-next {
-            background: white;
-            color: #9c27b0;
+            background: #2d3748;
+            color: #e2e8f0;
+            border: 1px solid #4a5568;
         }
 
         .btn-prev:hover, .btn-next:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #4a5568;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
         .btn-shuffle {
-            background: #ffd54f;
-            color: #333;
+            background: #e94560;
+            color: white;
         }
 
         .btn-shuffle:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
         }
 
         .hint {
             text-align: center;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.5);
             font-size: 0.9em;
             margin-top: 10px;
+        }
+
+        .card-face {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 600px) {

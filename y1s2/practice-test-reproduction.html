@@ -7,18 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #880e4f;
-            --primary-light: #ad1457;
-            --secondary: #e91e63;
-            --accent: #c2185b;
-            --bg: #fce4ec;
-            --card: #ffffff;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --correct: #27ae60;
-            --incorrect: #e74c3c;
-            --warning: #f39c12;
-            --border: #f8bbd0;
+            --primary: #e94560;
+            --primary-light: #c23152;
+            --secondary: #e94560;
+            --accent: #c23152;
+            --bg: #0f0f1a;
+            --card: #1a1a2e;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --correct: #34d399;
+            --incorrect: #f87171;
+            --warning: #fbbf24;
+            --border: #2d3748;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -28,14 +28,14 @@
             line-height: 1.7;
         }
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
             color: white;
             padding: 2rem;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(136, 14, 79, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             border-bottom: 4px solid var(--secondary);
         }
         .header h1 {
@@ -193,7 +193,7 @@
         }
         .option:hover {
             border-color: var(--primary);
-            background: white;
+            background: #16213e;
             transform: translateX(4px);
         }
         .option input { display: none; }
@@ -223,7 +223,7 @@
         }
         .option.correct-answer {
             border-color: var(--correct);
-            background: rgba(39, 174, 96, 0.1);
+            background: rgba(52, 211, 153, 0.1);
         }
         .option.correct-answer .option-marker {
             background: var(--correct);
@@ -231,7 +231,7 @@
         }
         .option.wrong-answer {
             border-color: var(--incorrect);
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(248, 113, 113, 0.1);
         }
         .tf-options {
             display: grid;
@@ -259,7 +259,7 @@
             border-radius: 10px;
             font-size: 1rem;
             font-family: 'Work Sans', sans-serif;
-            background: var(--bg);
+            background: #16213e;
             color: var(--text);
             cursor: pointer;
             transition: border-color 0.2s;
@@ -270,11 +270,11 @@
         }
         .dropdown-group.correct select {
             border-color: var(--correct);
-            background: rgba(39, 174, 96, 0.1);
+            background: rgba(52, 211, 153, 0.1);
         }
         .dropdown-group.incorrect select {
             border-color: var(--incorrect);
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(248, 113, 113, 0.1);
         }
         /* Fill-in-the-blank */
         .blank-input {
@@ -324,7 +324,8 @@
             font-size: 1rem;
             font-family: 'Work Sans', sans-serif;
             text-align: center;
-            background: white;
+            background: #16213e;
+            color: var(--text);
         }
         .order-item select:focus {
             outline: none;
@@ -332,11 +333,11 @@
         }
         .order-item.correct {
             border-color: var(--correct);
-            background: rgba(39, 174, 96, 0.1);
+            background: rgba(52, 211, 153, 0.1);
         }
         .order-item.incorrect {
             border-color: var(--incorrect);
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(248, 113, 113, 0.1);
         }
         .feedback {
             margin-top: 1rem;
@@ -348,13 +349,13 @@
         }
         .feedback.show { display: block; }
         .feedback.correct {
-            background: rgba(39, 174, 96, 0.1);
-            color: #1e7e34;
+            background: rgba(52, 211, 153, 0.1);
+            color: #34d399;
             border-left: 4px solid var(--correct);
         }
         .feedback.incorrect {
-            background: rgba(231, 76, 60, 0.1);
-            color: #c0392b;
+            background: rgba(248, 113, 113, 0.1);
+            color: #f87171;
             border-left: 4px solid var(--incorrect);
         }
         .submit-container {
@@ -378,7 +379,7 @@
         }
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
         }
         .results-container {
             display: none;
@@ -404,7 +405,7 @@
             width: 145px;
             height: 145px;
             border-radius: 50%;
-            background: white;
+            background: #1a1a2e;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -428,10 +429,10 @@
             margin-top: 1rem;
             font-size: 1.1rem;
         }
-        .grade-a { background: rgba(39, 174, 96, 0.15); color: #1e7e34; }
-        .grade-b { background: rgba(52, 152, 219, 0.15); color: #1e40af; }
-        .grade-c { background: rgba(243, 156, 18, 0.15); color: #92400e; }
-        .grade-d { background: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .grade-a { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+        .grade-b { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
+        .grade-c { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+        .grade-d { background: rgba(248, 113, 113, 0.15); color: #f87171; }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -454,7 +455,7 @@
             margin-top: 0.25rem;
         }
         .review-btn {
-            background: var(--bg);
+            background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
             padding: 0.8rem 2rem;
@@ -470,11 +471,11 @@
             color: white;
         }
         .instructions {
-            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(194, 24, 91, 0.1) 100%);
+            background: rgba(233, 69, 96, 0.08);
             border-radius: 12px;
             padding: 1.5rem 2rem;
             margin-bottom: 2rem;
-            border: 2px solid rgba(233, 30, 99, 0.2);
+            border: 2px solid rgba(233, 69, 96, 0.25);
         }
         .instructions h3 {
             color: var(--secondary);
