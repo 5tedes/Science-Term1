@@ -895,7 +895,7 @@
                 </div>
                 <p class="question-text">Fill in the gaps with the correct words:</p>
                 <p class="fill-paragraph">
-                    During <input type="text" class="blank-input" name="q14a" data-answer="sexual intercourse" placeholder="___________">, sperm cells mixed with special liquids from the <input type="text" class="blank-input" name="q14b" data-answer="glands" placeholder="___________"> is forced out of the penis and into the top of the <input type="text" class="blank-input" name="q14c" data-answer="vagina" placeholder="___________">. This is called <input type="text" class="blank-input" name="q14d" data-answer="ejaculation" placeholder="___________">. The semen travels into the top of the <input type="text" class="blank-input" name="q14e" data-answer="uterus" placeholder="___________">, and the sperm cells then swim down the <input type="text" class="blank-input" name="q14f" data-answer="oviducts" placeholder="___________">.
+                    During <input type="text" class="blank-input" name="q14a" data-answer="sexual intercourse|intercourse" placeholder="___________">, sperm cells mixed with special liquids from the <input type="text" class="blank-input" name="q14b" data-answer="glands|gland" placeholder="___________"> is forced out of the penis and into the top of the <input type="text" class="blank-input" name="q14c" data-answer="vagina" placeholder="___________">. This is called <input type="text" class="blank-input" name="q14d" data-answer="ejaculation" placeholder="___________">. The semen travels into the top of the <input type="text" class="blank-input" name="q14e" data-answer="uterus" placeholder="___________">, and the sperm cells then swim down the <input type="text" class="blank-input" name="q14f" data-answer="oviducts" placeholder="___________">.
                 </p>
                 <div class="feedback"></div>
             </div>
@@ -1345,21 +1345,19 @@
                 let anyAnswered = false;
 
                 inputs.forEach(inp => {
-                    const expected = inp.dataset.answer.toLowerCase().trim();
+                    const accepted = inp.dataset.answer.toLowerCase().split('|').map(a => a.trim());
                     const given = inp.value.toLowerCase().trim();
                     if (given) anyAnswered = true;
-                    if (given === expected) {
+                    if (accepted.includes(given)) {
                         inp.classList.add('correct');
                     } else {
                         inp.classList.add('incorrect');
                         allCorrect = false;
                         // Show correct answer after the input
-                        if (given !== expected) {
-                            const hint = document.createElement('span');
-                            hint.style.cssText = 'color:#27ae60; font-weight:600; margin-left:8px; font-size:0.9em;';
-                            hint.textContent = `(${inp.dataset.answer})`;
-                            inp.parentNode.insertBefore(hint, inp.nextSibling);
-                        }
+                        const hint = document.createElement('span');
+                        hint.style.cssText = 'color:#27ae60; font-weight:600; margin-left:8px; font-size:0.9em;';
+                        hint.textContent = `(${accepted[0]})`;
+                        inp.parentNode.insertBefore(hint, inp.nextSibling);
                     }
                 });
 
